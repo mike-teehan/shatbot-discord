@@ -1,0 +1,12 @@
+{
+  "name": "shatbot",
+  "version": "0.0.1",
+  "description": "shat shat shatbot",
+  "main": "bot.js",
+  "author": "eMpTy",
+  "dependencies": {
+    "discord.io": "^2.5.3",
+    "request": "^2.83.0",
+    "winston": "^2.4.0"
+  }
+}
