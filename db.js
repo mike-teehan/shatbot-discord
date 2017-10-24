@@ -58,4 +58,4 @@ CREATE TABLE messages( \
 		var res = db.insert("messages", msg);
 	}
 
-})()
+})();
