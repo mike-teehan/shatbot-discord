@@ -80,7 +80,7 @@ bot.on("message", function (user, userID, channelID, message, evt) {
 	}
 
 	function searchLutris(args) {
-		var qs;
+		var qs, responseHandler;
 		if (args[0] == 'random') {
 			var query = args[1];
 			if (!query) {
