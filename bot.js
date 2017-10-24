@@ -31,15 +31,19 @@ bot.on("ready", function (evt) {
 	logger.info(bot.username + " - (" + bot.id + ")");
 });
 
+bot.on("any", function(event) {
+	if(event.op == 0)
+		return;
+	console.log(Date() + " - event: " + JSON.stringify(event));
+});
+
 bot.on("message", function (user, userID, channelID, message, evt) {
 	var msg = { "user": user, "userID": userID, "channelID": channelID, "message": message, "evt": evt };
-	if(conf["log"]["messages"])
-		db.logMessage(msg);
 
 	if (message.substring(0, 1) == "!") {
 		var args = message.substring(1).split(" ");
 		var cmd = args[0];
-
+		console.log("cmd: " + cmd);
 		args = args.splice(1);
 
 		switch(cmd) {
@@ -59,24 +63,53 @@ bot.on("message", function (user, userID, channelID, message, evt) {
 					bot.sendMessage({ to: channelID, message: "wat" });
 			break;
 			case "suggest":
-				var title = args.join(" ");
-				postSuggestion(channelID, user, title);
+				postSuggestion(msg, args);
 				return;
 			break;
-// 			default:
-// 				bot.sendMessage({ to: channelID, message: "Unknown command." });
+			default:
+				if(conf["log"]["messages"])
+					db.logMessage(msg);
+			break;
 		}
 	}
 
-	function postSuggestion(channelID, user, title) {
+	function postSuggestion(msg, args) {
+		var startwords = [ "start", "begin", "allow", "on", "enable", "active" ];
+		var stopwords = [ "stop", "end", "deny", "off", "disable", "inactive" ];
+		if(args.length == 1 && startwords.includes(args[0]) && !db.getSuggestEnabled()) {
+			db.setSuggestEnabled(msg, true);
+			setTimeout(function() {
+				var txt = "Now accepting suggestions...";
+				bot.sendMessage({ to: msg["channelID"], message: txt });
+			}, 0);
+			return;
+		}
+		if(args.length == 1 && stopwords.includes(args[0]) && db.getSuggestEnabled()) {
+			db.setSuggestEnabled(msg, false);
+			setTimeout(function() {
+				var txt = "No longer accepting suggestions...";
+				bot.sendMessage({ to: msg["channelID"], message: txt });
+			}, 0);
+			return;
+		}
+		var title = args.join(" ");
+		if(!db.getSuggestEnabled()) {
+			setTimeout(function() {
+				var txt = "Suggestions are currently suspended...";
+				bot.sendMessage({ to: msg["channelID"], message: txt });
+			}, 0);
+			return false; // FIXME tell the user
+		}
+
 		request.post({
-			url: conf["suggest"]["url"],
-			formData: { title: title, user: user, api_key: conf["suggest"]["api_key"] },
+// 			url: conf["suggest"]["url"],
+			url: "localhost",
+			formData: { title: title, user: msg["user"], api_key: conf["suggest"]["api_key"] },
 			json: true
 		}, function() {
 			setTimeout(function() {
-				var msg = "\"" + title + "\" suggested...";
-				bot.sendMessage({ to: channelID, message: msg });
+				var txt = "\"" + title + "\" suggested...";
+				bot.sendMessage({ to: msg["channelID"], message: txt });
 			}, 0);
 		});
 	}
