@@ -7,5 +7,15 @@
 	"suggest": {
 		"url": "http://suggest.site.local/suggest/post",
 		"api_key": "xXxXxXxXx"
+	},
+	"db": {
+		"path": "",
+		"name": "shatbot.db"
+	},
+	"discord": {
+		"auth_token": "Mk24    YOUR AUTHENTICATION TOKEN GOES IN HERE    geTr1cK3D"
+	},
+	"log": {
+		"messages": false
 	}
 }

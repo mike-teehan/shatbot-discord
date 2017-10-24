@@ -1,9 +1,14 @@
+"use strict";
+
 var Discord = require("discord.io");
 var request = require("request");
 var logger = require("winston");
 
 var conf = require("./conf.json");
-var auth = require("./auth.json");
+var db = require("./db.js");
+
+db.connect();
+db.updateSchema();
 
 // Configure logger settings
 logger.remove(logger.transports.Console);
@@ -12,13 +17,11 @@ logger.add(logger.transports.Console, {
 });
 logger.level = "debug";
 
-
 // Initialize Discord Bot
 var bot = new Discord.Client({
-	token: auth.token,
+	token: conf["discord"]["auth_token"],
 	autorun: true
 });
-
 
 bot.on("ready", function (evt) {
 	this.setPresence({ game: { name: "with itself" } });
@@ -28,8 +31,9 @@ bot.on("ready", function (evt) {
 });
 
 bot.on("message", function (user, userID, channelID, message, evt) {
-	// Our bot needs to know if it needs to execute a command
-	// for this script it will listen for messages that will start with `!`
+	if(conf["log"]["messages"])
+		db.logMessage(user, userID, channelID, message, evt);
+
 	if (message.substring(0, 1) == "!") {
 		var args = message.substring(1).split(" ");
 		var cmd = args[0];

@@ -1,3 +1,5 @@
 auth.json
 conf.json
+/*.db
+package-lock.json
 node_modules/
