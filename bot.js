@@ -186,20 +186,7 @@ bot.on("message", function (user, userID, channelID, message, evt) {
 	}
 
 	function makeInsult(name) {
-		var insults = [
-			"@s eats too much cheese.",
-			"what's that smell?!? oh, it's just @s...",
-			"@s sucks!!1!",
-			"@s farts!!1!",
-			"@s rocks!!1! NOT",
-			"@s is alright, i guess.",
-			"hey @s, python sucks!",
-			"@s has been snorting baby powder again.",
-			"no one cares if you're gay, straight, non-binary, or whatever... but little kids, @s, really? little kids?",
-			"@s loves LAMP!",
-			"@s @s @s",
-			"stop with the dickpics already @s"
-		];
+		var insults = require("./insults.json");
 
 		var ins = insults.length;
 		logger.info("ins: " + ins);
