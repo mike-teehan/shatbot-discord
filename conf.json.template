@@ -1,3 +1,11 @@
 {
-    victim: "<@VICTIM ID HERE>"
+	"admins": [ 
+		"261admin#1IDnum257",
+		"271admin#1IDnum835"
+	],
+	"victim": victim: "<@VICTIM ID HERE>",
+	"suggest": {
+		"url": "http://suggest.site.local/suggest/post",
+		"api_key": "xXxXxXxXx"
+	}
 }

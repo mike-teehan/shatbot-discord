@@ -52,9 +52,27 @@ bot.on("message", function (user, userID, channelID, message, evt) {
 				else
 					bot.sendMessage({ to: channelID, message: "wat" });
 			break;
+			case "suggest":
+				var title = args.join(" ");
+				postSuggestion(channelID, user, title);
+				return;
+			break;
 // 			default:
 // 				bot.sendMessage({ to: channelID, message: "Unknown command." });
 		}
+	}
+
+	function postSuggestion(channelID, user, title) {
+		request.post({
+			url: conf["suggest"]["url"],
+			formData: { title: title, user: user, api_key: conf["suggest"]["api_key"] },
+			json: true
+		}, function() {
+			setTimeout(function() {
+				var msg = "\"" + title + "\" suggested...";
+				bot.sendMessage({ to: channelID, message: msg });
+			}, 0);
+		});
 	}
 
 	function searchLutris(args) {
