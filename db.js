@@ -53,9 +53,8 @@ CREATE TABLE messages( \
 		}
 	}
 
-	module.exports.logMessage = (user, userID, channelID, message, evt) => {
-		var msg = { "user": user, "userID": userID, "channelID": channelID, "message": message, "evt": evt };
-		console.log("log - (" + user + ") " + message);
+	module.exports.logMessage = (msg) => {
+		console.log("log - (" + msg["user"] + ") " + msg["message"]);
 		var res = db.insert("messages", msg);
 	}
 
