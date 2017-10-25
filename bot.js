@@ -48,8 +48,9 @@ bot.on("message", function (user, userID, channelID, message, evt) {
 
 		switch(cmd) {
 			// !ping
+			case "turbobrad":
 			case "strider":
-				var victim = conf["victim"];
+				var victim = conf["victims"][cmd];
 				var msg = makeInsult(victim);
 				bot.sendMessage({ to: channelID, message: msg });
 			break;
