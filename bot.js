@@ -1,6 +1,7 @@
 "use strict";
 
 var Discord = require("discord.io");
+var cheerio = require("cheerio");
 var request = require("request");
 var logger = require("winston");
 

@@ -6,7 +6,9 @@
   "main": "bot.js",
   "author": "eMpTy",
   "dependencies": {
+    "cheerio": "^1.0.0-rc.2",
     "discord.io": "^2.5.3",
+    "eslint": "^4.9.0",
     "request": "^2.83.0",
     "sqlite-sync": "^0.3.6",
     "sqlite3": "^3.1.13",
