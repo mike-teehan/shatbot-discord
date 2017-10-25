@@ -1,5 +1,5 @@
 {
-	"admins": [ 
+	"admins": [
 		"261admin#1IDnum257",
 		"271admin#1IDnum835"
 	],
@@ -10,6 +10,9 @@
 	"suggest": {
 		"url": "http://suggest.site.local/suggest/post",
 		"api_key": "xXxXxXxXx"
+	},
+	"randomyoutube": {
+		"api_token": "ListenToIgorrrAndRubyMyDearFigueFolle"
 	},
 	"db": {
 		"path": "",

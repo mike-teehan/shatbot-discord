@@ -7,6 +7,7 @@ var logger = require("winston");
 var conf = require("./conf.json");
 var db = require("./db.js");
 var lutris = require("./lutris.js");
+var youtube = require("./youtube.js");
 
 db.connect();
 db.updateSchema();
@@ -65,7 +66,9 @@ bot.on("message", function (user, userID, channelID, message, evt) {
 			break;
 			case "suggest":
 				postSuggestion(msg, args);
-				return;
+			break;
+			case "linuxgnuru":
+				youtube.postRandomYoutubeVideo(bot, channelID)
 			break;
 			default:
 				if(conf["log"]["messages"])
