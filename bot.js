@@ -75,23 +75,25 @@ bot.on("message", function (user, userID, channelID, message, evt) {
 	}
 
 	function postSuggestion(msg, args) {
-		var startwords = [ "start", "begin", "allow", "on", "enable", "active" ];
-		var stopwords = [ "stop", "end", "deny", "off", "disable", "inactive" ];
-		if(args.length == 1 && startwords.includes(args[0]) && !db.getSuggestEnabled()) {
-			db.setSuggestEnabled(msg, true);
-			setTimeout(function() {
-				var txt = "Now accepting suggestions...";
-				bot.sendMessage({ to: msg["channelID"], message: txt });
-			}, 0);
-			return;
-		}
-		if(args.length == 1 && stopwords.includes(args[0]) && db.getSuggestEnabled()) {
-			db.setSuggestEnabled(msg, false);
-			setTimeout(function() {
-				var txt = "No longer accepting suggestions...";
-				bot.sendMessage({ to: msg["channelID"], message: txt });
-			}, 0);
-			return;
+		if(conf["admins"].includes(msg["userID"])) {
+			var startwords = [ "start", "begin", "allow", "on", "enable", "active" ];
+			var stopwords = [ "stop", "end", "deny", "off", "disable", "inactive" ];
+			if(args.length == 1 && startwords.includes(args[0]) && !db.getSuggestEnabled()) {
+				db.setSuggestEnabled(msg, true);
+				setTimeout(function() {
+					var txt = "Now accepting suggestions...";
+					bot.sendMessage({ to: msg["channelID"], message: txt });
+				}, 0);
+				return;
+			}
+			if(args.length == 1 && stopwords.includes(args[0]) && db.getSuggestEnabled()) {
+				db.setSuggestEnabled(msg, false);
+				setTimeout(function() {
+					var txt = "No longer accepting suggestions...";
+					bot.sendMessage({ to: msg["channelID"], message: txt });
+				}, 0);
+				return;
+			}
 		}
 		var title = args.join(" ");
 		if(!db.getSuggestEnabled()) {
