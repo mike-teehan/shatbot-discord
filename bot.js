@@ -74,6 +74,9 @@ bot.on("message", function (user, userID, channelID, message, evt) {
 			case "mir":
 				giphy.postRandomGif(bot, channelID, "anime%20girl");
 			break;
+			case "mirppc":
+				bot.sendMessage({ to: channelID, message: "MOAR CORES!" });
+			break;
 			default:
 				if(conf["log"]["messages"])
 					db.logMessage(msg);
