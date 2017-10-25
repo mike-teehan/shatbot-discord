@@ -87,20 +87,24 @@ bot.on("message", function (user, userID, channelID, message, evt) {
 
 	function scrapeVotes(msg, args) {
 		var url = conf["suggest"]["url"] + conf["suggest"]["scrape"];
+		console.log("url: " + url);
 		request(url, (err, resp, html) => {
-			var titles = [], count = 0, title = "";
+// 			console.log("html: " + html);
+			var titles = [], title = "";
 			var $ = cheerio.load(html);
-			$('.title').filter(() => {
-				count++;
-				if(count >= 10) {
-					title = ordinal + " - " + $(this).text();
+			$('.title').each((i, el) => {
+				if(i < 10) {
+					title = (i + 1) + " - " + $(el).text();
+					console.log("title: " + title);
 					titles.push(title);
 				}
 			});
-				ordinal++;
-				setTimeout(function() {
-					bot.sendMessage({ to: msg["channelID"], message: txt });
-				}, 0);
+			if(titles.length == 0)
+				titles.push("No suggestions found...");
+			setTimeout(function() {
+				var txt = '```' + titles.join('\n') + '```';
+				bot.sendMessage({ to: msg["channelID"], message: txt });
+			}, 0);
 		});
 	}
 
