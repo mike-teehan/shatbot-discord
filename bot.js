@@ -58,7 +58,7 @@ bot.on("message", function (user, userID, channelID, message, evt) {
 				bot.sendMessage({ to: channelID, message: msg });
 			break;
 			case "mfoxdogg":
-				bot.sendMessage({ to: channelID, message: "M :fox: :dog:" });
+				bot.sendMessage({ to: channelID, message: ":regional_indicator_m: :fox: :dog2: :flag_au:" });
 			break;
 			case "lutris":
 				if(args.length > 0)
@@ -78,6 +78,9 @@ bot.on("message", function (user, userID, channelID, message, evt) {
 			case "mirppc":
 				bot.sendMessage({ to: channelID, message: "MOAR CORES!" });
 			break;
+			case "votes":
+				scrapeVotes(msg, args);
+			break;
 			default:
 				if(conf["log"]["messages"])
 					db.logMessage(msg);
@@ -85,11 +88,30 @@ bot.on("message", function (user, userID, channelID, message, evt) {
 		}
 	}
 
+	function scrapeVotes(msg, args) {
+		var url = conf["suggest"]["url"] + conf["suggest"]["scrape"];
+		request(url, (err, resp, html) => {
+			var titles = [], count = 0, title = "";
+			var $ = cheerio.load(html);
+			$('.title').filter(() => {
+				count++;
+				if(count >= 10) {
+					title = ordinal + " - " + $(this).text();
+					titles.push(title);
+				}
+			});
+				ordinal++;
+				setTimeout(function() {
+					bot.sendMessage({ to: msg["channelID"], message: txt });
+				}, 0);
+		});
+	}
+
 	function postSuggestion(msg, args) {
 		if(conf["admins"].includes(msg["userID"])) {
 			var startwords = [ "start", "begin", "allow", "on", "enable", "active" ];
 			var stopwords = [ "stop", "end", "deny", "off", "disable", "inactive" ];
-			if(args.length == 1 && startwords.includes(args[0]) && !db.getSuggestEnabled()) {
+			if(args.length == 1 && startwords.includes(args[0]) && !db.getSuggestEnabled(msg)) {
 				db.setSuggestEnabled(msg, true);
 				setTimeout(function() {
 					var txt = "Now accepting suggestions...";
@@ -97,7 +119,7 @@ bot.on("message", function (user, userID, channelID, message, evt) {
 				}, 0);
 				return;
 			}
-			if(args.length == 1 && stopwords.includes(args[0]) && db.getSuggestEnabled()) {
+			if(args.length == 1 && stopwords.includes(args[0]) && db.getSuggestEnabled(msg)) {
 				db.setSuggestEnabled(msg, false);
 				setTimeout(function() {
 					var txt = "No longer accepting suggestions...";
@@ -107,7 +129,7 @@ bot.on("message", function (user, userID, channelID, message, evt) {
 			}
 		}
 		var title = args.join(" ");
-		if(!db.getSuggestEnabled()) {
+		if(!db.getSuggestEnabled(msg)) {
 			setTimeout(function() {
 				var txt = "Suggestions are currently suspended...";
 				bot.sendMessage({ to: msg["channelID"], message: txt });
@@ -116,8 +138,7 @@ bot.on("message", function (user, userID, channelID, message, evt) {
 		}
 
 		request.post({
-// 			url: conf["suggest"]["url"],
-			url: "localhost",
+			url: conf["suggest"]["url"] + conf["suggest"]["submit"],
 			formData: { title: title, user: msg["user"], api_key: conf["suggest"]["api_key"] },
 			json: true
 		}, function() {
