@@ -58,10 +58,11 @@ CREATE TABLE suggest_enabled(
 		return res;
 	}
 
-	function _getSuggestEnabled() {
+	function _getSuggestEnabled(msg) {
 		var res = db.run(`
 SELECT enabled FROM suggest_enabled AS se
 LEFT JOIN messages AS m ON m.id = se.message_id
+WHERE m.channelID = ` + msg["channelID"] + `
 ORDER BY m.ts DESC
 LIMIT 1
 		`);
@@ -96,8 +97,8 @@ LIMIT 1
 		return _logMessage(msg);
 	}
 
-	module.exports.getSuggestEnabled = () => {
-		return _getSuggestEnabled();
+	module.exports.getSuggestEnabled = (msg) => {
+		return _getSuggestEnabled(msg);
 	}
 
 	module.exports.setSuggestEnabled = (msg, bool) => {

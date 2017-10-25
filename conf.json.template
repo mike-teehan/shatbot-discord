@@ -8,7 +8,9 @@
 		"frenchy": "<@FRENCH ID HERE>"
 	},
 	"suggest": {
-		"url": "http://suggest.site.local/suggest/post",
+		"url": "http://suggest.site.local",
+		"scrape": "/",
+		"submit": "/suggest/post",
 		"api_key": "xXxXxXxXx"
 	},
 	"randomyoutube": {
