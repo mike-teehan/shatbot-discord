@@ -14,6 +14,9 @@
 	"randomyoutube": {
 		"api_token": "ListenToIgorrrAndRubyMyDearFigueFolle"
 	},
+	"giphy": {
+		"api_key": "ListenToDownfallByTheGathering"
+	},
 	"db": {
 		"path": "",
 		"name": "shatbot.db"

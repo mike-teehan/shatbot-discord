@@ -8,6 +8,7 @@ var conf = require("./conf.json");
 var db = require("./db.js");
 var lutris = require("./lutris.js");
 var youtube = require("./youtube.js");
+var giphy = require("./giphy.js");
 
 db.connect();
 db.updateSchema();
@@ -69,6 +70,9 @@ bot.on("message", function (user, userID, channelID, message, evt) {
 			break;
 			case "linuxgnuru":
 				youtube.postRandomYoutubeVideo(bot, channelID)
+			break;
+			case "mir":
+				giphy.postRandomGif(bot, channelID, "anime%20girl");
 			break;
 			default:
 				if(conf["log"]["messages"])
