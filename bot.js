@@ -67,7 +67,13 @@ bot.on("message", function (user, userID, channelID, message, evt) {
 					bot.sendMessage({ to: channelID, message: "wat" });
 			break;
 			case "suggest":
-				postSuggestion(msg, args);
+				if(args.length > 0)
+					postSuggestion(msg, args);
+				else {
+					let state = (db.getSuggestEnabled(msg)) ? "" : " not";
+					state = "Suggestions are" + state + " enabled...";
+					bot.sendMessage({ to: channelID, message: state });
+				}
 			break;
 			case "linuxgnuru":
 				youtube.postRandomYoutubeVideo(bot, channelID)
