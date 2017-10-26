@@ -99,19 +99,72 @@ bot.on("message", function (user, userID, channelID, message, evt) {
 		console.log("url: " + url);
 		request(url, (err, resp, html) => {
 // 			console.log("html: " + html);
+			var $;
+			$ = cheerio.load(html);
+			var votes = [], vote = "";
+			$('.vote_count').each((i, el) => {
+				if(i < 20) {
+					vote = $(el).text();
+// 					console.log("votes: " + vote);
+					votes.push(vote);
+				}
+			});
+
+			$ = cheerio.load(html);
 			var titles = [], title = "";
-			var $ = cheerio.load(html);
+// 			var $ = cheerio.load(html);
 			$('.title').each((i, el) => {
-				if(i < 10) {
-					title = (i + 1) + " - " + $(el).text();
-					console.log("title: " + title);
+				if(i < 20) {
+					title = $(el).text();
+// 					console.log("title: " + title);
 					titles.push(title);
 				}
 			});
+// 			console.log("titles: " + JSON.stringify(titles));
+
 			if(titles.length == 0)
 				titles.push("No suggestions found...");
+			else {
+				// OH SNAP it's a naive bubblesort
+				var found;
+				do {
+					found = false
+					var iteration = 0, cur, next, tmp;
+					var search_len = votes.length - iteration - 1;
+					for(let i = 0; i < search_len; i++) {
+						cur = votes[i];
+						next = votes[i + 1];
+						if(cur > next) {
+							votes[i] = next;
+							votes[i + 1] = cur;
+							tmp = titles[i];
+							titles[i] = titles[i + 1];
+							titles[i + 1] = tmp;
+							found = true;
+						}
+					}
+					iteration++;
+				} while(found);
+				votes.reverse();
+// 				console.log("titles: " + JSON.stringify(titles));
+				titles.reverse();
+// 				console.log("titles: " + JSON.stringify(titles));
+			}
+
+			var top = (20 > titles.length) ? titles.length : 20;
+			var rows = [], row;
+			for(let i = 0; i < top; i++) {
+				if(votes[i] > 0)
+					rows.push(votes[i] + " - " + titles[i]);
+			}
+
+			var txt;
+			if(rows.length == 0)
+				txt = "No suggestions with votes yet...";
+			else
+				txt = '```' + rows.join('\n') + '```';
+
 			setTimeout(function() {
-				var txt = '```' + titles.join('\n') + '```';
 				bot.sendMessage({ to: msg["channelID"], message: txt });
 			}, 0);
 		});
