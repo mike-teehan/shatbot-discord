@@ -227,4 +227,8 @@ bot.on("message", function (user, userID, channelID, message, evt) {
 
 bot.on("disconnect", function(errmsg, code) {
 	logger.info("Disconnected: (" + code + ") " + errmsg);
+	setTimeout(() => {
+		// return a "failure" exit code so systemd (or whatever) will respawn us
+		process.exit(1);
+	}, 250);
 });
