@@ -10,6 +10,7 @@ var db = require("./db.js");
 var lutris = require("./lutris.js");
 var youtube = require("./youtube.js");
 var giphy = require("./giphy.js");
+var aussie = require("./aussie.js");
 
 db.connect();
 db.updateSchema();
@@ -86,6 +87,10 @@ bot.on("message", function (user, userID, channelID, message, evt) {
 			break;
 			case "votes":
 				scrapeVotes(msg, args);
+			break;
+			case "aussie":
+				var resp = aussie.flipText(args);
+				bot.sendMessage({ to: channelID, message: resp });
 			break;
 			default:
 				if(conf["log"]["messages"])
