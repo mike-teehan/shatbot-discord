@@ -19,6 +19,13 @@
 	"giphy": {
 		"api_key": "ListenToDownfallByTheGathering"
 	},
+	"memegenerator.net": {
+		"api_key": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+		"username": "user name",
+		"password": "user password",
+		"generatorID": "generator ID",
+		"imageID": "image ID"
+	},
 	"db": {
 		"path": "",
 		"name": "shatbot.db"

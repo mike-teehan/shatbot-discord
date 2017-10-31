@@ -10,6 +10,7 @@ var db = require("./db.js");
 var lutris = require("./lutris.js");
 var youtube = require("./youtube.js");
 var giphy = require("./giphy.js");
+var meme = require("./meme.js");
 var aussie = require("./aussie.js");
 
 db.connect();
@@ -42,7 +43,7 @@ bot.on("any", function(event) {
 });
 
 bot.on("message", function (user, userID, channelID, message, evt) {
-	var msg = { "user": user, "userID": userID, "channelID": channelID, "message": message, "evt": evt };
+	var msg = { "bot": bot, "user": user, "userID": userID, "channelID": channelID, "message": message, "evt": evt };
 
 	if (message.substring(0, 1) == "!") {
 		var args = message.substring(1).split(" ");
@@ -88,6 +89,9 @@ bot.on("message", function (user, userID, channelID, message, evt) {
 			case "votes":
 				scrapeVotes(msg, args);
 			break;
+			case "atomicass":
+				memeAtomicAss(msg, args);
+			break;
 			case "aussie":
 				var resp = aussie.flipText(args);
 				bot.sendMessage({ to: channelID, message: resp });
@@ -97,6 +101,10 @@ bot.on("message", function (user, userID, channelID, message, evt) {
 					db.logMessage(msg);
 			break;
 		}
+	}
+
+	function memeAtomicAss(msg, args) {
+		meme.make(msg, args);
 	}
 
 	function scrapeVotes(msg, args) {
