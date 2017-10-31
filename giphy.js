@@ -15,7 +15,13 @@
 			json: true,
 		}, function (error, response, body) {
 			if (body) {
-				bot.sendMessage({ to: channelID, message: body.data.image_url });
+				const embed = {
+					"title": "",
+					"url": "http://memegenerator.net",
+					"image": { "url": body.data.image_url }
+				};
+
+				bot.sendMessage({ to: channelID, embed: embed });
 			}
 		})
 	}
