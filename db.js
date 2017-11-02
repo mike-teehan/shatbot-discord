@@ -52,6 +52,7 @@ CREATE TABLE suggest_enabled(
 	}
 
 	function _logMessage(msg) {
+		delete msg["bot"];
 		console.log("log - (" + msg["user"] + ") " + msg["message"]);
 		var res = db.insert("messages", msg);
 		console.log("insert res: " + res);
