@@ -185,8 +185,8 @@ bot.on("message", function (user, userID, channelID, message, evt) {
 
 	function postSuggestion(msg, args) {
 		if(conf["admins"].includes(msg["userID"])) {
-			var startwords = [ "start", "begin", "allow", "on", "enable", "active" ];
-			var stopwords = [ "stop", "end", "deny", "off", "disable", "inactive" ];
+			var startwords = [ "1", "start", "begin", "allow", "on", "enable", "active", "true" ];
+			var stopwords = [ "0", "stop", "end", "deny", "off", "disable", "inactive", "false" ];
 			if(args.length == 1 && startwords.includes(args[0]) && !db.getSuggestEnabled(msg)) {
 				db.setSuggestEnabled(msg, true);
 				setTimeout(function() {
