@@ -59,6 +59,9 @@ bot.on("message", function (user, userID, channelID, message, evt) {
 				var msg = makeInsult(victim);
 				bot.sendMessage({ to: channelID, message: msg });
 			break;
+			case "member":
+				bot.sendMessage({ to: channelID, message: member() });
+			break
 			case "mfoxdogg":
 				bot.sendMessage({ to: channelID, message: ":regional_indicator_m: :fox: :dog2: :flag_au:" });
 			break;
@@ -236,6 +239,17 @@ bot.on("message", function (user, userID, channelID, message, evt) {
 		var i = insult.replace(/@s/g, name);
 		return i;
 	}
+
+	function randomChoice(deck) {
+		var index = Math.floor(Math.random() * deck.length);
+		return deck[index];
+	}
+
+	function member() {
+		const memberBerries = require("./memberberries.json")
+		return "…member " + randomChoice(memberBerries) + "?!!? :-D"
+	}
+
 });
 
 bot.on("disconnect", function(errmsg, code) {
