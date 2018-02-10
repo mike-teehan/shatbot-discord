@@ -254,6 +254,9 @@ bot.on("message", function (user, userID, channelID, message, evt) {
 	}
 
 	function watIs(wat) {
+		if(!wat) {
+			return "Yo, what's up?!";
+		}
 		const definitions = require("./definitions.json");
 		const definition = definitions[wat.trim().toLowerCase()];
 		if(definition) {
