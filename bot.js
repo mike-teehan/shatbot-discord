@@ -61,7 +61,10 @@ bot.on("message", function (user, userID, channelID, message, evt) {
 			break;
 			case "member":
 				bot.sendMessage({ to: channelID, message: member() });
-			break
+			break;
+			case "wat":
+				bot.sendMessage({ to: channelID, message: watIs(args)});
+			break;
 			case "mfoxdogg":
 				bot.sendMessage({ to: channelID, message: ":regional_indicator_m: :fox: :dog2: :flag_au:" });
 			break;
@@ -246,8 +249,21 @@ bot.on("message", function (user, userID, channelID, message, evt) {
 	}
 
 	function member() {
-		const memberBerries = require("./memberberries.json")
-		return "…member " + randomChoice(memberBerries) + "?!!? :-D"
+		const memberBerries = require("./memberberries.json");
+		return "…member " + randomChoice(memberBerries) + "?!!? :-D";
+	}
+
+	function watIs(wat) {
+		if(!wat) {
+			return "Yo, what's up?!";
+		}
+		const definitions = require("./definitions.json");
+		const definition = definitions[wat.trim().toLowerCase()];
+		if(definition) {
+			return definition;
+		} else {
+			return "I have no clue what a " + wat + " is.";
+		}
 	}
 
 });
