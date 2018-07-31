@@ -92,6 +92,17 @@ bot.on("message", function (user, userID, channelID, message, evt) {
 			case "mirppc":
 				bot.sendMessage({ to: channelID, message: "MOAR CORES!" });
 			break;
+			case "img":
+				const roastImgUser = "Wait a minute... wait a minute... What "
+					+ "did just happen here? Did you just use the !img command? Don't "
+					+ "you know that TURBO Brad is a worthless piece of shit? What did "
+					+ "you expect by running this !img command, an image? really? are "
+					+ "you fucking kidding me? It's common knowledge that the !img command is completely "
+					+ "useless, so what's your goal there? Are you so bored out of your mind and desperate "
+					+ "for something to do that you would run this, hoping that no one would notice?"
+					+ "FFS, get a hold of yourself, keep your shit together, you're losing it. "
+					+ "Consider this is a warning, we won't be as tolerant next time.";
+				bot.sendMessage({ to: channelID, message: roastImgUser })
 			case "votes":
 				scrapeVotes(msg, args);
 			break;
