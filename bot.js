@@ -101,7 +101,8 @@ bot.on("message", function (user, userID, channelID, message, evt) {
 					+ "useless, so what's your goal there? Are you so bored out of your mind and desperate "
 					+ "for something to do that you would run this, hoping that no one would notice?"
 					+ "FFS, get a hold of yourself, keep your shit together, you're losing it. "
-					+ "Consider this is a warning, we won't be as tolerant next time.";
+					+ "Consider this is a warning, we won't be as tolerant next time."
+					+ "\n\nLurve,\nThe Denizens of Shat";
 				bot.sendMessage({ to: channelID, message: roastImgUser })
 			case "votes":
 				scrapeVotes(msg, args);
