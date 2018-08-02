@@ -74,6 +74,32 @@ bot.on("message", function (user, userID, channelID, message, evt) {
 				else
 					bot.sendMessage({ to: channelID, message: "wat" });
 			break;
+			case "frojoe":
+				var msg = false;
+				if(args.length == 1) {
+					var nums = args[0].split("d");
+					if(nums.length == 2 && nums[0].length < 3 && nums[1].length < 5) {
+						var totalroll = 0;
+						var num = parseInt(nums[0]);
+						var die = parseInt(nums[1]);
+						if(num > 0 && die > 0 && num == nums[0] && die == nums[1]) {
+							var rolls = [];
+							var c = 0;
+							for(var i = 0; i < num; i++) {
+								c = Math.floor(Math.random() * die) + 1;
+								totalroll += c;
+								rolls.push(c);
+								
+							}
+							msg = "<@" + userID + "> rolled a " + totalroll + " (" + rolls.join(", ") + ")";
+						}
+					}
+				}
+				if(!msg)
+					msg = "Usage: !frojoe XdY\nWhere: X and Y are members of ℕ, X < 100, and Y < 10000";
+
+				bot.sendMessage({ to: channelID, message: msg });
+			break;
 			case "suggest":
 				if(args.length > 0)
 					postSuggestion(msg, args);
