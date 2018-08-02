@@ -66,7 +66,7 @@ bot.on("message", function (user, userID, channelID, message, evt) {
 				bot.sendMessage({ to: channelID, message: watIs(args)});
 			break;
 			case "mfoxdogg":
-				bot.sendMessage({ to: channelID, message: foxify(args)});
+				bot.sendMessage({ to: channelID, message: foxxxify(args)});
 			break;
 			case "lutris":
 				if(args.length > 0)
@@ -369,17 +369,14 @@ bot.on("message", function (user, userID, channelID, message, evt) {
 		}
 	}
 
-	function foxify(dogg) {
-		if (!dogg) {
-			return ":regional_indicator_m: :fox: :dog2: :flag_au:"
-		}
+	function foxxxify(dogg) {
+		if(!dogg)
+			return ":regional_indicator_m: :fox: :dog2: :flag_au:";
 		const doggo = dogg.trim().toLowerCase();
-		if (doggo === "out") {
+		if (doggo === "out")
 			return "https://cdn.discordapp.com/attachments/270406768750886912/443264760436490271/fuck-this-shit.png";
-		}
-		if (doggo === "laterz") {
+		if (doggo === "laterz")
 			return "https://cdn.discordapp.com/attachments/270406768750886912/474401118915657746/Screenshot_from_2018-05-06_14-16-03.png";
-		}
 		return "https://cdn.discordapp.com/attachments/270406768750886912/474401450257154048/Screenshot_from_2018-05-12_13-38-18.png";
 	}
 
