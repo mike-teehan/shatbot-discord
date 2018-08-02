@@ -365,7 +365,12 @@ bot.on("message", function (user, userID, channelID, message, evt) {
 		if(definition) {
 			return definition;
 		} else {
-			return "I have no clue what a " + wat + " is.";
+			if (typeof wat === "string") {
+				const word = wat;
+			} else {
+				const word = wat.join(" ");
+			}
+			return "I have no clue what a " + word + " is.";
 		}
 	}
 
