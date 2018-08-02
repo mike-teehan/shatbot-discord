@@ -140,6 +140,71 @@ bot.on("message", function (user, userID, channelID, message, evt) {
 				var resp = aussie.flipText(args);
 				bot.sendMessage({ to: channelID, message: resp });
 			break;
+			case "jfss":
+				var f = [
+"Spunky", "Crispy", "Undercooked", "Wet Hot American", "Moistened", "Dirty", "Spicy, Spicy", "Crunchy", "Wildly Overrated",
+"Speedy", "S-Club 7-branded", "Jazzy", "Dilapidated", "Jizzy", "Prematurely-Birthed", "Hairy", "Hobgoblin's", "Spermy",
+"Stinky", "Clean Shaven", "Mystic", "Rectally-Inserted", "Erotically-Awakened", "Urine-Flavored", "Squeaky", "Soggy",
+"Pubic", "Big Black"
+				];
+				var l = [
+"Cumdumpsters", "Areolas", "Uvulas", "Undies", "Jizzboys", "Rectums", "Dildos", "Cocklobsters", "Milkshakes",
+"Lady-fingers", "Hams", "Bottoms", "Fatties", "Wizzards", "Armpits", "Stink Clouds", "Pantaloons", "Shitwipes",
+"Clits", "Monkeys", "U2 Fans", "Scabs", "Fuckrags", "Boys", "Scrotums", "Parasites", "Pancakes", "Stinkers"
+				];
+				var gifurls = [
+"https://media.giphy.com/media/8Zf0nJytPx4kr9t1OD/giphy.gif",
+"https://media.giphy.com/media/93YoxYHMJdej6/giphy.gif",
+"https://media2.giphy.com/media/COakIiWYHRlaU/giphy.gif",
+"https://media3.giphy.com/media/HhaZdWpfmc56o/giphy.gif",
+"https://media3.giphy.com/media/N2wzzZavH7jFK/giphy.gif",
+"https://media2.giphy.com/media/har4vdqu3xfCE/giphy.gif",
+"https://media3.giphy.com/media/lSyv3ESPQvYvC/giphy.gif"
+				];
+				var fn = Math.floor(Math.random() * f.length);
+				var ln = Math.floor(Math.random() * l.length);
+				var gn = Math.floor(Math.random() * gifurls.length);
+				var msg = "Hello, you " + f[fn] + " " + l[ln] + "™";
+
+                                const embed = {
+                                        "title": "JFSS SPEAKS:",
+					"description": msg,
+                                        "image": { "url": gifurls[gn] }
+                                };
+
+                                bot.sendMessage({ to: channelID, embed: embed });
+			break;
+                        case "barf":
+                                var gifurls = [
+"https://media1.giphy.com/media/EiCQzmzE5HLaw/giphy.gif",
+"https://media1.giphy.com/media/3o7bugZgrGQEmE4epq/giphy.gif",
+"https://media1.giphy.com/media/zm9Tt8vsAmJmE/giphy.gif",
+"https://media3.giphy.com/media/xZv1drArGozD2/giphy.gif",
+"https://media0.giphy.com/media/iIj0itnYjTbQ4/giphy.gif",
+"https://media2.giphy.com/media/xT8qBbnDnrGWivuBlm/giphy.gif",
+"https://media0.giphy.com/media/3o7abLdw8eeqjX6m4g/giphy.gif",
+"https://media1.giphy.com/media/26FxCxnkrzUy0u2nm/giphy.gif",
+"https://media1.giphy.com/media/3o7aTmiKf3Lpp1ozXW/giphy.gif",
+"https://media3.giphy.com/media/9MmtzCIorgW7S/giphy.gif",
+"https://media1.giphy.com/media/26FxMl51JsgPnEzvy/giphy.gif",
+"https://media0.giphy.com/media/5gArNffWKNbXO/giphy.gif",
+"https://media2.giphy.com/media/e48mcLfU9zgFq/giphy.gif",
+"https://media1.giphy.com/media/xUA7b5sBrDikGvNs1G/giphy.gif",
+"https://media0.giphy.com/media/l44QkEErzRcmPuRlm/giphy.gif",
+"https://media1.giphy.com/media/WbhPKtfXZSM5a/giphy.gif",
+"https://media0.giphy.com/media/4qCEytljLybzq/giphy.gif"
+                                ];
+                                var gn = Math.floor(Math.random() * gifurls.length);
+                                var msg = "";
+
+                                const embed2 = {
+                                        "title": "BARF!!!",
+                                        "description": msg,
+                                        "image": { "url": gifurls[gn] }
+                                };
+
+                                bot.sendMessage({ to: channelID, embed: embed2 });
+                        break;
 			default:
 				if(conf["log"]["messages"])
 					db.logMessage(msg);
