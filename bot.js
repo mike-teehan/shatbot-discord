@@ -91,7 +91,7 @@ bot.on("message", function (user, userID, channelID, message, evt) {
 								rolls.push(c);
 								
 							}
-							msg = "<@" + userID + "> rolled a " + totalroll + " (" + rolls.join(", ") + ")";
+							msg = "<@" + userID + "> rolled a " + totalroll + " (" + rolls.join(" + ") + ")";
 						}
 					}
 				}
