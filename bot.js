@@ -160,6 +160,17 @@ bot.on("message", function (user, userID, channelID, message, evt) {
 "https://media3.giphy.com/media/N2wzzZavH7jFK/giphy.gif",
 "https://media2.giphy.com/media/har4vdqu3xfCE/giphy.gif",
 "https://media3.giphy.com/media/lSyv3ESPQvYvC/giphy.gif"
+"https://media2.giphy.com/media/Gt4HdteNFL8wE/giphy.gif"
+"https://thumbs.gfycat.com/EverlastingDetailedAustralianfreshwatercrocodile-size_restricted.gif"
+"https://thumbs.gfycat.com/MarvelousRequiredBlackfootedferret-size_restricted.gif"
+"https://thumbs.gfycat.com/OfficialGlossyIndianelephant-size_restricted.gif"
+"https://thumbs.gfycat.com/CanineOrnateBellsnake-size_restricted.gif"
+"https://thumbs.gfycat.com/CookedInfamousBantamrooster-size_restricted.gif"
+"https://thumbs.gfycat.com/LikelyUniformCaudata-size_restricted.gif"
+"https://thumbs.gfycat.com/QuarrelsomeWillingHorsefly-size_restricted.gif"
+"https://thumbs.gfycat.com/IncredibleUnderstatedFirecrest-size_restricted.gif"
+"https://thumbs.gfycat.com/GrandioseEmbarrassedConch-size_restricted.gif"
+"https://thumbs.gfycat.com/GratefulSoggyIslandcanary-size_restricted.gif"
 				];
 				var fn = Math.floor(Math.random() * f.length);
 				var ln = Math.floor(Math.random() * l.length);
