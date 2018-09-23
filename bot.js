@@ -205,7 +205,7 @@ bot.on("message", function (user, userID, channelID, message, evt) {
 
                                 bot.sendMessage({ to: channelID, embed: embed2 });
                         break;
-			case "cage":
+												case "cage":
                                 var gifurls = [
 "https://media1.giphy.com/media/xTiTnC5cMmUx9bfWYU/giphy.gif",
 "https://media2.giphy.com/media/8J5qsXwnIah2M/giphy.gif",
