@@ -159,7 +159,11 @@ bot.on("message", function (user, userID, channelID, message, evt) {
 "https://media3.giphy.com/media/HhaZdWpfmc56o/giphy.gif",
 "https://media3.giphy.com/media/N2wzzZavH7jFK/giphy.gif",
 "https://media2.giphy.com/media/har4vdqu3xfCE/giphy.gif",
-"https://media3.giphy.com/media/lSyv3ESPQvYvC/giphy.gif"
+"https://media3.giphy.com/media/lSyv3ESPQvYvC/giphy.gif",
+"https://i.imgur.com/CLKeAbg.mp4",
+"https://i.imgur.com/DjkUJsY.gif",
+"https://i.imgur.com/Ry6KPym.gif",
+"https://i.imgur.com/dLm43uc.gif"
 				];
 				var fn = Math.floor(Math.random() * f.length);
 				var ln = Math.floor(Math.random() * l.length);
