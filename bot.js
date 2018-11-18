@@ -161,16 +161,11 @@ bot.on("message", function (user, userID, channelID, message, evt) {
 "https://media2.giphy.com/media/har4vdqu3xfCE/giphy.gif",
 "https://media3.giphy.com/media/lSyv3ESPQvYvC/giphy.gif"
 "https://media2.giphy.com/media/Gt4HdteNFL8wE/giphy.gif"
-"https://thumbs.gfycat.com/EverlastingDetailedAustralianfreshwatercrocodile-size_restricted.gif"
-"https://thumbs.gfycat.com/MarvelousRequiredBlackfootedferret-size_restricted.gif"
-"https://thumbs.gfycat.com/OfficialGlossyIndianelephant-size_restricted.gif"
-"https://thumbs.gfycat.com/CanineOrnateBellsnake-size_restricted.gif"
-"https://thumbs.gfycat.com/CookedInfamousBantamrooster-size_restricted.gif"
-"https://thumbs.gfycat.com/LikelyUniformCaudata-size_restricted.gif"
-"https://thumbs.gfycat.com/QuarrelsomeWillingHorsefly-size_restricted.gif"
-"https://thumbs.gfycat.com/IncredibleUnderstatedFirecrest-size_restricted.gif"
-"https://thumbs.gfycat.com/GrandioseEmbarrassedConch-size_restricted.gif"
-"https://thumbs.gfycat.com/GratefulSoggyIslandcanary-size_restricted.gif"
+"https://media3.giphy.com/media/lSyv3ESPQvYvC/giphy.gif",
+"https://i.imgur.com/CLKeAbg.mp4",
+"https://i.imgur.com/DjkUJsY.gif",
+"https://i.imgur.com/Ry6KPym.gif",
+"https://i.imgur.com/dLm43uc.gif"
 				];
 				var fn = Math.floor(Math.random() * f.length);
 				var ln = Math.floor(Math.random() * l.length);
@@ -376,7 +371,12 @@ bot.on("message", function (user, userID, channelID, message, evt) {
 		if(definition) {
 			return definition;
 		} else {
-			return "I have no clue what a " + wat + " is.";
+			if (typeof wat === "string") {
+				const word = wat;
+			} else {
+				const word = wat.join(" ");
+			}
+			return "I have no clue what a " + word + " is.";
 		}
 	}
 
