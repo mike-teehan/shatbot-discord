@@ -89,7 +89,7 @@ bot.on("message", function (user, userID, channelID, message, evt) {
 								c = Math.floor(Math.random() * die) + 1;
 								totalroll += c;
 								rolls.push(c);
-								
+
 							}
 							msg = "<@" + userID + "> rolled a " + totalroll + " (" + rolls.join(" + ") + ")";
 						}
@@ -209,6 +209,23 @@ bot.on("message", function (user, userID, channelID, message, evt) {
                                         "image": { "url": gifurls[gn] }
                                 };
 
+                                bot.sendMessage({ to: channelID, embed: embed2 });
+                        break;
+			case "cage":
+                                var gifurls = [
+"https://media1.giphy.com/media/xTiTnC5cMmUx9bfWYU/giphy.gif",
+"https://media2.giphy.com/media/8J5qsXwnIah2M/giphy.gif",
+"https://media0.giphy.com/media/bQ40qrJdEg8Mw/giphy.gif",
+"https://media2.giphy.com/media/10uct1aSFT7QiY/giphy.gif",
+"https://media0.giphy.com/media/CiTLZWskt7Fu/giphy.gif"
+                                ];
+                                var gn = Math.floor(Math.random() * gifurls.length);
+                                var msg = "";
+                                const embed2 = {
+                                        "title": "#CageForVenn",
+                                        "description": msg,
+                                        "image": { "url": gifurls[gn] }
+                                };
                                 bot.sendMessage({ to: channelID, embed: embed2 });
                         break;
 			default:
