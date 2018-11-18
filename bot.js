@@ -110,7 +110,24 @@ bot.on("message", function (user, userID, channelID, message, evt) {
 				}
 			break;
 			case "linuxgnuru":
-				youtube.postRandomYoutubeVideo(bot, channelID)
+                const goingToBedQuotes = [
+                    "anywho; i'm going to bed; maybe i can get 2 hours of sleep",
+                    "ffs\ni'm going to bed.",
+                    "TIL\nalso i'm going to bed now as it's 2 minutes until midnight",
+                    "i think it's time i went to bed ...",
+                    "woah\nok, i'm not going to bed anytime soon",
+                    "right; well i haven't gone to bed yet and it's now 5:25am so laters",
+                    "Ok... 30 min of RotTR then to bed. Honestly",
+                    "And now I haz to go to bed because 1)I'm old and 2) I have to get up at 4:00am",
+                    "so; back to finishing watching LGC LDW\nand then bed",
+                    "damn it; and here i was hoping to go to bed early",
+                    "anyway; off to bed so i can sleep and maybe make it in 7 hours for LGC",
+                    "aww damn it; it's past my bed time now :frowning:",
+                    "i have been awake for 27 hours time to go to bed"
+                ];
+				var quoteIndex = Math.floor(Math.random() * goingToBedQuotes.length);
+				bot.sendMessage({ to: channelID, message: state });
+                // youtube.postRandomYoutubeVideo(bot, channelID)
 			break;
 			case "mir":
 				giphy.postRandomGif(bot, channelID, "anime%20girl");
