@@ -89,7 +89,7 @@ bot.on("message", function (user, userID, channelID, message, evt) {
 								c = Math.floor(Math.random() * die) + 1;
 								totalroll += c;
 								rolls.push(c);
-								
+
 							}
 							msg = "<@" + userID + "> rolled a " + totalroll + " (" + rolls.join(" + ") + ")";
 						}
@@ -110,7 +110,24 @@ bot.on("message", function (user, userID, channelID, message, evt) {
 				}
 			break;
 			case "linuxgnuru":
-				youtube.postRandomYoutubeVideo(bot, channelID)
+                const goingToBedQuotes = [
+                    "anywho; i'm going to bed; maybe i can get 2 hours of sleep",
+                    "ffs\ni'm going to bed.",
+                    "TIL\nalso i'm going to bed now as it's 2 minutes until midnight",
+                    "i think it's time i went to bed ...",
+                    "woah\nok, i'm not going to bed anytime soon",
+                    "right; well i haven't gone to bed yet and it's now 5:25am so laters",
+                    "Ok... 30 min of RotTR then to bed. Honestly",
+                    "And now I haz to go to bed because 1)I'm old and 2) I have to get up at 4:00am",
+                    "so; back to finishing watching LGC LDW\nand then bed",
+                    "damn it; and here i was hoping to go to bed early",
+                    "anyway; off to bed so i can sleep and maybe make it in 7 hours for LGC",
+                    "aww damn it; it's past my bed time now :frowning:",
+                    "i have been awake for 27 hours time to go to bed"
+                ];
+				var quoteIndex = Math.floor(Math.random() * goingToBedQuotes.length);
+				bot.sendMessage({ to: channelID, message: state });
+                // youtube.postRandomYoutubeVideo(bot, channelID)
 			break;
 			case "mir":
 				giphy.postRandomGif(bot, channelID, "anime%20girl");
@@ -159,6 +176,8 @@ bot.on("message", function (user, userID, channelID, message, evt) {
 "https://media3.giphy.com/media/HhaZdWpfmc56o/giphy.gif",
 "https://media3.giphy.com/media/N2wzzZavH7jFK/giphy.gif",
 "https://media2.giphy.com/media/har4vdqu3xfCE/giphy.gif",
+"https://media3.giphy.com/media/lSyv3ESPQvYvC/giphy.gif"
+"https://media2.giphy.com/media/Gt4HdteNFL8wE/giphy.gif"
 "https://media3.giphy.com/media/lSyv3ESPQvYvC/giphy.gif",
 "https://i.imgur.com/CLKeAbg.mp4",
 "https://i.imgur.com/DjkUJsY.gif",
@@ -207,6 +226,23 @@ bot.on("message", function (user, userID, channelID, message, evt) {
                                         "image": { "url": gifurls[gn] }
                                 };
 
+                                bot.sendMessage({ to: channelID, embed: embed2 });
+                        break;
+			case "cage":
+                                var gifurls = [
+"https://media1.giphy.com/media/xTiTnC5cMmUx9bfWYU/giphy.gif",
+"https://media2.giphy.com/media/8J5qsXwnIah2M/giphy.gif",
+"https://media0.giphy.com/media/bQ40qrJdEg8Mw/giphy.gif",
+"https://media2.giphy.com/media/10uct1aSFT7QiY/giphy.gif",
+"https://media0.giphy.com/media/CiTLZWskt7Fu/giphy.gif"
+                                ];
+                                var gn = Math.floor(Math.random() * gifurls.length);
+                                var msg = "";
+                                const embed2 = {
+                                        "title": "#CageForVenn",
+                                        "description": msg,
+                                        "image": { "url": gifurls[gn] }
+                                };
                                 bot.sendMessage({ to: channelID, embed: embed2 });
                         break;
 			default:
@@ -369,7 +405,12 @@ bot.on("message", function (user, userID, channelID, message, evt) {
 		if(definition) {
 			return definition;
 		} else {
-			return "I have no clue what a " + wat + " is.";
+			if (typeof wat === "string") {
+				const word = wat;
+			} else {
+				const word = wat.join(" ");
+			}
+			return "I have no clue what a " + word + " is.";
 		}
 	}
 
