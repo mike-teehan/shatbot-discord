@@ -39,7 +39,7 @@ bot.on("ready", function (evt) {
 bot.on("any", function(event) {
 	if(event.op == 0)
 		return;
-	console.log(Date() + " - event: " + JSON.stringify(event));
+	// console.log(Date() + " - event: " + JSON.stringify(event));
 });
 
 bot.on("message", function (user, userID, channelID, message, evt) {
@@ -48,7 +48,7 @@ bot.on("message", function (user, userID, channelID, message, evt) {
 	if (message.substring(0, 1) == "!") {
 		var args = message.substring(1).split(" ");
 		var cmd = args[0];
-		console.log("cmd: " + cmd);
+		// console.log("cmd: " + cmd);
 		args = args.splice(1);
 
 		switch(cmd) {
@@ -176,13 +176,13 @@ bot.on("message", function (user, userID, channelID, message, evt) {
 "https://media3.giphy.com/media/HhaZdWpfmc56o/giphy.gif",
 "https://media3.giphy.com/media/N2wzzZavH7jFK/giphy.gif",
 "https://media2.giphy.com/media/har4vdqu3xfCE/giphy.gif",
-"https://media3.giphy.com/media/lSyv3ESPQvYvC/giphy.gif"
-"https://media2.giphy.com/media/Gt4HdteNFL8wE/giphy.gif"
+"https://media3.giphy.com/media/lSyv3ESPQvYvC/giphy.gif",
+"https://media2.giphy.com/media/Gt4HdteNFL8wE/giphy.gif",
 "https://media3.giphy.com/media/lSyv3ESPQvYvC/giphy.gif",
 "https://i.imgur.com/CLKeAbg.mp4",
 "https://i.imgur.com/DjkUJsY.gif",
 "https://i.imgur.com/Ry6KPym.gif",
-"https://i.imgur.com/dLm43uc.gif"
+"https://i.imgur.com/dLm43uc.gif",
 				];
 				var fn = Math.floor(Math.random() * f.length);
 				var ln = Math.floor(Math.random() * l.length);
@@ -220,30 +220,30 @@ bot.on("message", function (user, userID, channelID, message, evt) {
                                 var gn = Math.floor(Math.random() * gifurls.length);
                                 var msg = "";
 
-                                const embed2 = {
+                                const barfEmbed = {
                                         "title": "BARF!!!",
                                         "description": msg,
                                         "image": { "url": gifurls[gn] }
                                 };
 
-                                bot.sendMessage({ to: channelID, embed: embed2 });
+                                bot.sendMessage({ to: channelID, embed: barfEmbed });
                         break;
 			case "cage":
                                 var gifurls = [
-"https://media1.giphy.com/media/xTiTnC5cMmUx9bfWYU/giphy.gif",
-"https://media2.giphy.com/media/8J5qsXwnIah2M/giphy.gif",
-"https://media0.giphy.com/media/bQ40qrJdEg8Mw/giphy.gif",
-"https://media2.giphy.com/media/10uct1aSFT7QiY/giphy.gif",
-"https://media0.giphy.com/media/CiTLZWskt7Fu/giphy.gif"
+																	"https://media1.giphy.com/media/xTiTnC5cMmUx9bfWYU/giphy.gif",
+																	"https://media2.giphy.com/media/8J5qsXwnIah2M/giphy.gif",
+																	"https://media0.giphy.com/media/bQ40qrJdEg8Mw/giphy.gif",
+																	"https://media2.giphy.com/media/10uct1aSFT7QiY/giphy.gif",
+																	"https://media0.giphy.com/media/CiTLZWskt7Fu/giphy.gif"
                                 ];
                                 var gn = Math.floor(Math.random() * gifurls.length);
                                 var msg = "";
-                                const embed2 = {
-                                        "title": "#CageForVenn",
-                                        "description": msg,
-                                        "image": { "url": gifurls[gn] }
+                                const cageEmbed = {
+                                	"title": "#CageForVenn",
+                                  "description": msg,
+                                  "image": { "url": gifurls[gn] }
                                 };
-                                bot.sendMessage({ to: channelID, embed: embed2 });
+                                bot.sendMessage({ to: channelID, embed: cageEmbed });
                         break;
 			default:
 				if(conf["log"]["messages"])
@@ -258,7 +258,7 @@ bot.on("message", function (user, userID, channelID, message, evt) {
 
 	function scrapeVotes(msg, args) {
 		var url = conf["suggest"]["url"] + conf["suggest"]["scrape"];
-		console.log("url: " + url);
+		// console.log("url: " + url);
 		request(url, (err, resp, html) => {
 // 			console.log("html: " + html);
 			var $;
@@ -308,9 +308,9 @@ bot.on("message", function (user, userID, channelID, message, evt) {
 					iteration++;
 				} while(found);
 				votes.reverse();
-// 				console.log("titles: " + JSON.stringify(titles));
+				// console.log("titles: " + JSON.stringify(titles));
 				titles.reverse();
-// 				console.log("titles: " + JSON.stringify(titles));
+				// console.log("titles: " + JSON.stringify(titles));
 			}
 
 			var top = (20 > titles.length) ? titles.length : 20;
@@ -324,7 +324,7 @@ bot.on("message", function (user, userID, channelID, message, evt) {
 			if(rows.length == 0)
 				txt = "No suggestions with votes yet...";
 			else
-				txt = '```' + rows.join('\n') + '```';
+				txt = "```" + rows.join("\n") + "```";
 
 			setTimeout(function() {
 				bot.sendMessage({ to: msg["channelID"], message: txt });
