@@ -5,7 +5,7 @@
   },
   "rules": {
     "quotes": [1, "double"],
-    "indent": [1, "tab"],
+    "indent": ["error", "tab", { "SwitchCase": 1 }],
     "eol-last": 2,
     "no-console": 2,
     "spaced-comment": [0, "always"],
