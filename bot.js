@@ -107,7 +107,7 @@ bot.on("message", function (user, userID, channelID, message, evt) {
 				}
 				if (!msg)
 					msg =
-						"Usage: !frojoe XdY\nWhere: X and Y are members of ℕ, X < 100, and Y < 10000";
+						"Usage: !frojoe XdY\nWhere: X and Y are members of ℕ*, X < 100, and Y < 10000";
 
 				bot.sendMessage({ to: channelID, message: msg });
 				break;
