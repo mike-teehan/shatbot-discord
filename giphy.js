@@ -1,28 +1,14 @@
 (function() {
-
-	var request = require("request");
+	const got = require('got')
+	const { MessageEmbed } = require('discord.js');
 	var conf = require("./conf.json");
 
-	module.exports.postRandomGif = (bot, channelID, tag) => {
-		postRandomGif(bot, channelID, tag);
+	async function getRandomGif(tag) {
+		const apiKey = conf["giphy"]["api_key"];
+		const url = `https://api.giphy.com/v1/gifs/random?api_key=${apiKey}&tag=${tag}`;
+		response = await got(url).json()
+		return new MessageEmbed().setImage(response.data.image_url)
 	}
 
-	function postRandomGif(bot, channelID, tag) {
-		var apiKey = conf["giphy"]["api_key"];
-		var url = `https://api.giphy.com/v1/gifs/random?api_key=${apiKey}&tag=${tag}`;
-		request.get({
-			url: url,
-			json: true,
-		}, function (error, response, body) {
-			if (body) {
-				const embed = {
-					"title": "",
-					"url": "http://memegenerator.net",
-					"image": { "url": body.data.image_url }
-				};
-
-				bot.sendMessage({ to: channelID, embed: embed });
-			}
-		})
-	}
+	module.exports.getRandomGif = getRandomGif
 })();

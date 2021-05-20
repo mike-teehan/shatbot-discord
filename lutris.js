@@ -1,15 +1,7 @@
 (function() {
-
-	var request = require("request");
-	var _bot = {}, _msg = {};
-
-	module.exports.search = (bot, msg, args) => {
-		searchLutris(bot, msg, args);
-	}
-
-	function searchLutris(bot, msg, args) {
-		_bot = bot;
-		_msg = msg;
+	var got = require("got");
+	
+	async function searchLutris(args) {
 		var qs, responseHandler;
 		if (args[0] == 'random') {
 			var query = args[1];
@@ -22,13 +14,11 @@
 			qs = 'search=' + args.join("+");
 			responseHandler = handleLutrisSearch;
 		}
-		request.get({
-			url: "https://lutris.net/api/games?" + qs,
-			json: true
-		}, responseHandler);
+		const response = await request.get("https://lutris.net/api/games?" + qs).json()
+		return responseHandler(response)
 	}
 
-	function handleLutrisRandom(e, r, data) {
+	function handleLutrisRandom(data) {
 		var results = data['results'];
 		if (!results) {
 			return;
@@ -63,36 +53,25 @@
 		} else {
 			author = {};
 		}
-
-		var footer;
-		footer = {
-				text: ""
-		}
-
-		setTimeout(function() {
-			_bot.sendMessage({
-				to: _msg["channelID"],
-				message: '',
-				url: 'https://lutris.net/games/' + game['slug'],
-				embed: {
-					color: 0xf89a15,
-					title: game['name'],
-					thumbnail: {
-						url: "https://lutris.net/static/images/logo.png"
-					},
-					author: author,
-					footer: footer,
-					fields: fields,
-					image: {
-						url: 'https://lutris.net' + game['banner_url']
-					}
+		return {
+			message: '',
+			url: 'https://lutris.net/games/' + game['slug'],
+			embed: {
+				color: 0xf89a15,
+				title: game['name'],
+				thumbnail: {
+					url: "https://lutris.net/static/images/logo.png"
+				},
+				fields: fields,
+				image: {
+					url: 'https://lutris.net' + game['banner_url']
 				}
-			}, 0);
-		});
+			}
+		}
 	}
 
-	function handleLutrisSearch(e, r, data) {
-	//		logger.info("search data: " + JSON.stringify(data));
+	function handleLutrisSearch(data) {
+		// logger.info("search data: " + JSON.stringify(data));
 		var results = data["results"];
 		var loops = (results.length > 10) ? 10 : results.length;
 		var msg = "";
@@ -109,9 +88,8 @@
 			}
 			msg += "```";
 		}
-		setTimeout(function() {
-			_bot.sendMessage({ to: _msg["channelID"], message: msg });
-		}, 0);
+		return msg
 	}
 
+	module.exports.searchLutris = searchLutris
 })();
