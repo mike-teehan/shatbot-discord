@@ -11,7 +11,7 @@
     "eslint": "^4.9.0",
     "request": "^2.83.0",
     "sqlite-sync": "^0.3.6",
-    "sqlite3": "^3.1.13",
+    "sqlite3": "^5.0.2",
     "winston": "^2.4.0"
   },
   "repository": {
