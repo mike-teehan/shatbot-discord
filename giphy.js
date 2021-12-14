@@ -7,7 +7,13 @@
 		const apiKey = conf["giphy"]["api_key"];
 		const url = `https://api.giphy.com/v1/gifs/random?api_key=${apiKey}&tag=${tag}`;
 		response = await got(url).json()
-		return new MessageEmbed().setImage(response.data.image_url)
+		const imageUrl = response.data.images.original.url
+		if (!imageUrl) {
+			console.error("Failed to get image")
+			console.log(response.data)
+			return
+		}
+		return new MessageEmbed().setImage(imageUrl)
 	}
 
 	module.exports.getRandomGif = getRandomGif
