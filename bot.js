@@ -110,6 +110,9 @@ bot.on("message", async (msg) => {
 			case "mfoxdogg":
 				msg.channel.send(foxxxify(args));
 				break;
+			case "mark":
+				msg.channel.send(mark());
+				break;
 			case "lutris":
 				let lutrisText = "wat"
 				if (args.length > 0) {
@@ -323,5 +326,9 @@ bot.on("message", async (msg) => {
 		if (doggo === "laterz")
 			return "https://cdn.discordapp.com/attachments/270406768750886912/474401118915657746/Screenshot_from_2018-05-06_14-16-03.png";
 		return "https://cdn.discordapp.com/attachments/270406768750886912/474401450257154048/Screenshot_from_2018-05-12_13-38-18.png";
+	}
+
+	function mark() {
+		return "https://media.discordapp.net/attachments/270406768750886912/943523121074429952/Screenshot_from_2022-02-15_14-41-38.png"
 	}
 });
