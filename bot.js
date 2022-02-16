@@ -308,12 +308,7 @@ bot.on("message", async (msg) => {
 		if (definition) {
 			return definition;
 		} else {
-			if (typeof wat === "string") {
-				const word = wat;
-			} else {
-				const word = wat.join(" ");
-			}
-			return "I have no clue what a " + word + " is.";
+			return "I have no clue what a " + args + " is.";
 		}
 	}
 
