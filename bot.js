@@ -23,6 +23,11 @@ logger.add(logger.transports.Console, {
 });
 logger.level = "debug";
 
+const randomChoice = function(deck) {
+	var index = Math.floor(Math.random() * deck.length);
+	return deck[index];
+}
+
 const tickleMeFrojoe = function(msg, args) {
 	var nums = args[0].split("d");
 	if (nums.length == 2 && nums[0].length < 3 && nums[1].length < 5) {
@@ -311,10 +316,6 @@ bot.on("message", async (msg) => {
 		return i;
 	}
 
-	function randomChoice(deck) {
-		var index = Math.floor(Math.random() * deck.length);
-		return deck[index];
-	}
 
 	function member() {
 		const memberBerries = require("./memberberries.json");
