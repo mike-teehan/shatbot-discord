@@ -141,7 +141,7 @@ bot.on("message", async (msg) => {
 			case "lutris":
 				let lutrisText = "wat"
 				if (args.length > 0) {
-					lurisText = lutris.searchLutris(args);
+					lutrisText = lutris.searchLutris(args);
 				}
 				msg.channel.send(lutrisText);
 				break;
