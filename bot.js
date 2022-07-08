@@ -69,6 +69,26 @@ const linuxgnuruGoingToBed = function () {
 	return goingToBedQuotes[quoteIndex];
 }
 
+
+const justinLaptop = function () {
+	const sentences = [
+		"Today, I bought a $PRICE laptop",
+		"My $PRICE laptop is dead!",
+		"I ordered 3 $PRICE laptops",
+		"Looking into getting the new $PRICE MacBook"
+	]
+	const prices = [
+		"1049",
+		"1790",
+		"2200",
+		"2990",
+		"4490",
+	]
+	var sentence = randomChoice(sentences)
+	var price = randomChoice(prices)
+	return sentence.replace("PRICE", price)
+}
+
 // Initialize Discord Bot
 var bot = new Client()
 bot.login(conf["discord"]["auth_token"])
@@ -125,6 +145,9 @@ bot.on("message", async (msg) => {
 				break;
 			case "linuxgnuru":
 				msg.channel.send(linuxgnuruGoingToBed());
+				break;
+			case "justin":
+				msg.channel.send(justinLaptop());
 				break;
 			case "mir":
 				const giph = await giphy.getRandomGif("waifu")
