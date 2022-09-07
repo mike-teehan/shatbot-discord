@@ -6,12 +6,13 @@
   "main": "bot.js",
   "author": "eMpTy",
   "dependencies": {
-    "cheerio": "^1.0.0-rc.2",
-    "discord.io": "^2.5.3",
-    "eslint": "^4.9.0",
-    "request": "^2.83.0",
-    "sqlite-sync": "^0.3.6",
-    "sqlite3": "^3.1.13",
+    "cheerio": "^1.0.0-rc.9",
+    "discord.js": "^12.5.3",
+    "eslint": "^7.26.0",
+    "got": "^11.8.2",
+    "request": "^2.88.2",
+    "sqlite-sync": "^0.3.9",
+    "sqlite3": "^5.0.2",
     "winston": "^2.4.0"
   },
   "repository": {

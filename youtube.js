@@ -16,7 +16,7 @@
 		}, function (error, response, body) {
 			if (body) {
 				var url = `https://www.youtube.com/watch?v=${body.vid}`
-				bot.sendMessage({ to: channelID, message: url });
+				msg.channel.send({ to: channelID, message: url });
 			} 
 		})
 	}

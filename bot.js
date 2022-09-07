@@ -1,17 +1,17 @@
 "use strict";
 
-var Discord = require("discord.io");
-var cheerio = require("cheerio");
-var request = require("request");
-var logger = require("winston");
+const { Client, MessageEmbed } = require('discord.js');
+const cheerio = require("cheerio");
+const request = require("request");
+const logger = require("winston");
 
-var conf = require("./conf.json");
-var db = require("./db.js");
-var lutris = require("./lutris.js");
-var youtube = require("./youtube.js");
-var giphy = require("./giphy.js");
-var meme = require("./meme.js");
-var aussie = require("./aussie.js");
+const conf = require("./conf.json");
+const db = require("./db.js");
+const lutris = require("./lutris.js");
+const youtube = require("./youtube.js");
+const giphy = require("./giphy.js");
+const meme = require("./meme.js");
+const aussie = require("./aussie.js");
 
 db.connect();
 db.updateSchema();
@@ -23,150 +23,156 @@ logger.add(logger.transports.Console, {
 });
 logger.level = "debug";
 
-// Initialize Discord Bot
-var bot = new Discord.Client({
-	token: conf["discord"]["auth_token"],
-	autorun: true,
-});
+const randomChoice = function(deck) {
+	var index = Math.floor(Math.random() * deck.length);
+	return deck[index];
+}
 
-bot.on("ready", function (evt) {
-	this.setPresence({ game: { name: "with itself" } });
+const tickleMeFrojoe = function(msg, args) {
+	var nums = args[0].split("d");
+	if (nums.length == 2 && nums[0].length < 3 && nums[1].length < 5) {
+		var totalroll = 0;
+		var num = parseInt(nums[0]);
+		var die = parseInt(nums[1]);
+		if (num > 0 && die > 0 && num == nums[0] && die == nums[1]) {
+			var rolls = [];
+			var c = 0;
+			for (var i = 0; i < num; i++) {
+				c = Math.floor(Math.random() * die) + 1;
+				totalroll += c;
+				rolls.push(c);
+			}
+			return "<@" +
+				msg.author.id +
+				"> rolled a " +
+				totalroll +
+				" (" +
+				rolls.join(" + ") +
+				")";
+		}
+	}
+	return "Usage: !frojoe XdY\nWhere: X and Y are members of ℕ*, X < 100, and Y < 10000";
+}
+
+const linuxgnuruGoingToBed = function () {
+	const goingToBedQuotes = [
+		"anywho; i'm going to bed; maybe i can get 2 hours of sleep",
+		"ffs\ni'm going to bed.",
+		"TIL\nalso i'm going to bed now as it's 2 minutes until midnight",
+		"i think it's time i went to bed ...",
+		"woah\nok, i'm not going to bed anytime soon",
+		"right; well i haven't gone to bed yet and it's now 5:25am so laters",
+		"Ok... 30 min of RotTR then to bed. Honestly",
+		"And now I haz to go to bed because 1)I'm old and 2) I have to get up at 4:00am",
+		"so; back to finishing watching LGC LDW\nand then bed",
+		"damn it; and here i was hoping to go to bed early",
+		"anyway; off to bed so i can sleep and maybe make it in 7 hours for LGC",
+		"aww damn it; it's past my bed time now :frowning:",
+		"i have been awake for 27 hours time to go to bed",
+	];
+	var quoteIndex = Math.floor(Math.random() * goingToBedQuotes.length);
+	return goingToBedQuotes[quoteIndex];
+}
+
+
+const justinLaptop = function () {
+	const sentences = [
+		"Today, I bought a $PRICE laptop",
+		"My $PRICE laptop is dead!",
+		"I ordered 3 $PRICE laptops",
+		"Looking into getting the new $PRICE MacBook"
+	]
+	const prices = [
+		"1049",
+		"1790",
+		"2200",
+		"2990",
+		"4490",
+	]
+	var sentence = randomChoice(sentences)
+	var price = randomChoice(prices)
+	return sentence.replace("PRICE", price)
+}
+
+// Initialize Discord Bot
+var bot = new Client()
+bot.login(conf["discord"]["auth_token"])
+
+bot.on("ready", () => {
+	//this.setPresence({ game: { name: "with itself" } });
 	logger.info("Connected");
 	logger.info("Logged in as: ");
-	logger.info(bot.username + " - (" + bot.id + ")");
+	logger.info(bot.user.id + " - (" + bot.user.username + ")");
 });
 
-bot.on("any", function (event) {
+bot.on("any", event => {
 	if (event.op == 0) return;
 	// console.log(Date() + " - event: " + JSON.stringify(event));
 });
 
-bot.on("message", function (user, userID, channelID, message, evt) {
-	var msg = {
-		bot: bot,
-		user: user,
-		userID: userID,
-		channelID: channelID,
-		message: message,
-		evt: evt,
-	};
+bot.on("message", async (msg) => {
+	const channelID = msg.channel.id
+	const userID = msg
 
-	if (message.substring(0, 1) == "!") {
-		var args = message.substring(1).split(" ");
+	if (msg.content.substring(0, 1) == "!") {
+		var args = msg.content.substring(1).split(" ");
 		var cmd = args[0];
 		// console.log("cmd: " + cmd);
 		args = args.splice(1);
 
 		switch (cmd) {
-			// !ping
 			case "turbobrad":
 			case "strider":
 				var victim = conf["victims"][cmd];
-				var msg = makeInsult(victim);
-				bot.sendMessage({ to: channelID, message: msg });
+				msg.channel.send(makeInsult(victim));
 				break;
 			case "member":
-				bot.sendMessage({ to: channelID, message: member() });
+				msg.channel.send(member());
 				break;
 			case "wat":
-				bot.sendMessage({ to: channelID, message: watIs(args) });
+				msg.channel.send(watIs(args));
 				break;
 			case "mfoxdogg":
-				bot.sendMessage({ to: channelID, message: foxxxify(args) });
+				msg.channel.send(foxxxify(args));
+				break;
+			case "mark":
+				msg.channel.send(mark());
 				break;
 			case "lutris":
-				if (args.length > 0) lutris.search(bot, msg, args);
-				else bot.sendMessage({ to: channelID, message: "wat" });
+				let lutrisText = "wat"
+				if (args.length > 0) {
+					lutrisText = lutris.searchLutris(args);
+				}
+				msg.channel.send(lutrisText);
 				break;
 			case "frojoe":
-				var msg = false;
-				if (args.length == 1) {
-					var nums = args[0].split("d");
-					if (nums.length == 2 && nums[0].length < 3 && nums[1].length < 5) {
-						var totalroll = 0;
-						var num = parseInt(nums[0]);
-						var die = parseInt(nums[1]);
-						if (num > 0 && die > 0 && num == nums[0] && die == nums[1]) {
-							var rolls = [];
-							var c = 0;
-							for (var i = 0; i < num; i++) {
-								c = Math.floor(Math.random() * die) + 1;
-								totalroll += c;
-								rolls.push(c);
-							}
-							msg =
-								"<@" +
-								userID +
-								"> rolled a " +
-								totalroll +
-								" (" +
-								rolls.join(" + ") +
-								")";
-						}
-					}
-				}
-				if (!msg)
-					msg =
-						"Usage: !frojoe XdY\nWhere: X and Y are members of ℕ*, X < 100, and Y < 10000";
-
-				bot.sendMessage({ to: channelID, message: msg });
-				break;
-			case "suggest":
-				if (args.length > 0) postSuggestion(msg, args);
-				else {
-					let state = db.getSuggestEnabled(msg) ? "" : " not";
-					state = "Suggestions are" + state + " enabled...";
-					bot.sendMessage({ to: channelID, message: state });
-				}
+				msg.channel.send(tickleMeFrojoe(msg, args))
 				break;
 			case "linuxgnuru":
-				const goingToBedQuotes = [
-					"anywho; i'm going to bed; maybe i can get 2 hours of sleep",
-					"ffs\ni'm going to bed.",
-					"TIL\nalso i'm going to bed now as it's 2 minutes until midnight",
-					"i think it's time i went to bed ...",
-					"woah\nok, i'm not going to bed anytime soon",
-					"right; well i haven't gone to bed yet and it's now 5:25am so laters",
-					"Ok... 30 min of RotTR then to bed. Honestly",
-					"And now I haz to go to bed because 1)I'm old and 2) I have to get up at 4:00am",
-					"so; back to finishing watching LGC LDW\nand then bed",
-					"damn it; and here i was hoping to go to bed early",
-					"anyway; off to bed so i can sleep and maybe make it in 7 hours for LGC",
-					"aww damn it; it's past my bed time now :frowning:",
-					"i have been awake for 27 hours time to go to bed",
-				];
-				var quoteIndex = Math.floor(Math.random() * goingToBedQuotes.length);
-				bot.sendMessage({ to: channelID, message: state });
-				// youtube.postRandomYoutubeVideo(bot, channelID)
+				msg.channel.send(linuxgnuruGoingToBed());
+				break;
+			case "justin":
+				msg.channel.send(justinLaptop());
 				break;
 			case "mir":
-				giphy.postRandomGif(bot, channelID, "anime%20girl");
+				const giph = await giphy.getRandomGif("waifu")
+				msg.channel.send(giph);
 				break;
 			case "mirppc":
-				bot.sendMessage({ to: channelID, message: "MOAR CORES!" });
+				msg.channel.send("MOAR CORES!");
 				break;
 			case "img":
-				const roastImgUser =
-					"Wait a minute... wait a minute... What " +
-					"did just happen here? Did you just use the !img command? Don't " +
-					"you know that TURBO Brad is a worthless piece of shit? What did " +
-					"you expect by running this !img command, an image? really? are " +
-					"you fucking kidding me? It's common knowledge that the !img command is completely " +
-					"useless, so what's your goal there? Are you so bored out of your mind and desperate " +
-					"for something to do that you would run this, hoping that no one would notice?" +
-					"FFS, get a hold of yourself, keep your shit together, you're losing it. " +
-					"Consider this is a warning, we won't be as tolerant next time." +
-					"\n\nLurve,\nThe Denizens of Shat";
-				bot.sendMessage({ to: channelID, message: roastImgUser });
-			case "votes":
-				scrapeVotes(msg, args);
+				const whatIsImg = "IMG was founded in 1960 in Cleveland, Ohio by Mark McCormack, an American lawyer who spotted the potential for athletes to make large incomes from endorsement in the television age; he signed professional golfers Arnold Palmer, Gary Player and Jack Nicklaus as his first clients who collectively are known as The Big Three."
+				msg.channel.send(whatIsImg);
 				break;
 			case "atomicass":
-				memeAtomicAss(msg, args);
+				const _meme = await meme.makeMeme(args)
+				if (_meme) {
+					msg.channel.send(_meme)
+				}
 				break;
 			case "aussie":
-				var resp = aussie.flipText(args);
-				bot.sendMessage({ to: channelID, message: resp });
+				msg.channel.send(aussie.flipText(args));
 				break;
 			case "jfss":
 				var f = [
@@ -247,15 +253,11 @@ bot.on("message", function (user, userID, channelID, message, evt) {
 				var fn = Math.floor(Math.random() * f.length);
 				var ln = Math.floor(Math.random() * l.length);
 				var gn = Math.floor(Math.random() * gifurls.length);
-				var msg = "Hello, you " + f[fn] + " " + l[ln] + "™";
-
-				const embed = {
-					title: "JFSS SPEAKS:",
-					description: msg,
-					image: { url: gifurls[gn] },
-				};
-
-				bot.sendMessage({ to: channelID, embed: embed });
+				var text = "Hello, you " + f[fn] + " " + l[ln] + "™";
+				const embed = new MessageEmbed()
+				  .setImage(gifurls[gn])
+				  .setDescription(text)
+				msg.channel.send(embed);
 				break;
 			case "barf":
 				var gifurls = [
@@ -278,15 +280,10 @@ bot.on("message", function (user, userID, channelID, message, evt) {
 					"https://media0.giphy.com/media/4qCEytljLybzq/giphy.gif",
 				];
 				var gn = Math.floor(Math.random() * gifurls.length);
-				var msg = "";
-
-				const barfEmbed = {
-					title: "BARF!!!",
-					description: msg,
-					image: { url: gifurls[gn] },
-				};
-
-				bot.sendMessage({ to: channelID, embed: barfEmbed });
+				const barfEmbed = new MessageEmbed()
+					.setImage(gifurls[gn])
+					.setTitle("BARF!!!")
+				msg.channel.send(barfEmbed);
 				break;
 			case "cage":
 				var gifurls = [
@@ -297,13 +294,10 @@ bot.on("message", function (user, userID, channelID, message, evt) {
 					"https://media0.giphy.com/media/CiTLZWskt7Fu/giphy.gif",
 				];
 				var gn = Math.floor(Math.random() * gifurls.length);
-				var msg = "";
-				const cageEmbed = {
-					title: "#CageForVenn",
-					description: msg,
-					image: { url: gifurls[gn] },
-				};
-				bot.sendMessage({ to: channelID, embed: cageEmbed });
+				const cageEmbed = new MessageEmbed()
+					.setImage(gifurls[gn])
+					.setTitle("#CageForVenn")
+				msg.channel.send(cageEmbed);
 				break;
 			default:
 				if (conf["log"]["messages"]) db.logMessage(msg);
@@ -311,166 +305,8 @@ bot.on("message", function (user, userID, channelID, message, evt) {
 		}
 	}
 
-	function memeAtomicAss(msg, args) {
-		meme.make(msg, args);
-	}
-
-	function scrapeVotes(msg, args) {
-		var url = conf["suggest"]["url"] + conf["suggest"]["scrape"];
-		// console.log("url: " + url);
-		request(url, (err, resp, html) => {
-			// 			console.log("html: " + html);
-			var $;
-			$ = cheerio.load(html);
-			var votes = [],
-				vote = "";
-			$(".vote_count").each((i, el) => {
-				if (i < 20) {
-					vote = $(el).text();
-					// 					console.log("votes: " + vote);
-					votes.push(vote);
-				}
-			});
-
-			$ = cheerio.load(html);
-			var titles = [],
-				title = "";
-			// 			var $ = cheerio.load(html);
-			$(".title").each((i, el) => {
-				if (i < 20) {
-					title = $(el).text();
-					// 					console.log("title: " + title);
-					titles.push(title);
-				}
-			});
-			// 			console.log("titles: " + JSON.stringify(titles));
-
-			if (titles.length == 0) titles.push("No suggestions found...");
-			else {
-				// OH SNAP it's a naive bubblesort
-				var found;
-				do {
-					found = false;
-					var iteration = 0,
-						cur,
-						next,
-						tmp;
-					var search_len = votes.length - iteration - 1;
-					for (let i = 0; i < search_len; i++) {
-						cur = votes[i];
-						next = votes[i + 1];
-						if (cur > next) {
-							votes[i] = next;
-							votes[i + 1] = cur;
-							tmp = titles[i];
-							titles[i] = titles[i + 1];
-							titles[i + 1] = tmp;
-							found = true;
-						}
-					}
-					iteration++;
-				} while (found);
-				votes.reverse();
-				// console.log("titles: " + JSON.stringify(titles));
-				titles.reverse();
-				// console.log("titles: " + JSON.stringify(titles));
-			}
-
-			var top = 20 > titles.length ? titles.length : 20;
-			var rows = [],
-				row;
-			for (let i = 0; i < top; i++) {
-				if (votes[i] > 0) rows.push(votes[i] + " - " + titles[i]);
-			}
-
-			var txt;
-			if (rows.length == 0) txt = "No suggestions with votes yet...";
-			else txt = "```" + rows.join("\n") + "```";
-
-			setTimeout(function () {
-				bot.sendMessage({ to: msg["channelID"], message: txt });
-			}, 0);
-		});
-	}
-
-	function postSuggestion(msg, args) {
-		if (conf["admins"].includes(msg["userID"])) {
-			var startwords = [
-				"1",
-				"start",
-				"begin",
-				"allow",
-				"on",
-				"enable",
-				"active",
-				"true",
-			];
-			var stopwords = [
-				"0",
-				"stop",
-				"end",
-				"deny",
-				"off",
-				"disable",
-				"inactive",
-				"false",
-			];
-			if (
-				args.length == 1 &&
-				startwords.includes(args[0]) &&
-				!db.getSuggestEnabled(msg)
-			) {
-				db.setSuggestEnabled(msg, true);
-				setTimeout(function () {
-					var txt = "Now accepting suggestions...";
-					bot.sendMessage({ to: msg["channelID"], message: txt });
-				}, 0);
-				return;
-			}
-			if (
-				args.length == 1 &&
-				stopwords.includes(args[0]) &&
-				db.getSuggestEnabled(msg)
-			) {
-				db.setSuggestEnabled(msg, false);
-				setTimeout(function () {
-					var txt = "No longer accepting suggestions...";
-					bot.sendMessage({ to: msg["channelID"], message: txt });
-				}, 0);
-				return;
-			}
-		}
-		var title = args.join(" ");
-		if (!db.getSuggestEnabled(msg)) {
-			setTimeout(function () {
-				var txt = "Suggestions are currently suspended...";
-				bot.sendMessage({ to: msg["channelID"], message: txt });
-			}, 0);
-			return false; // FIXME tell the user
-		}
-
-		request.post(
-			{
-				url: conf["suggest"]["url"] + conf["suggest"]["submit"],
-				formData: {
-					title: title,
-					user: msg["user"],
-					api_key: conf["suggest"]["api_key"],
-				},
-				json: true,
-			},
-			function () {
-				setTimeout(function () {
-					var txt = '"' + title + '" suggested...';
-					bot.sendMessage({ to: msg["channelID"], message: txt });
-				}, 0);
-			}
-		);
-	}
-
 	function makeInsult(name) {
 		var insults = require("./insults.json");
-
 		var ins = insults.length;
 		logger.info("ins: " + ins);
 		var ind = Math.floor(Math.random() * ins);
@@ -480,17 +316,14 @@ bot.on("message", function (user, userID, channelID, message, evt) {
 		return i;
 	}
 
-	function randomChoice(deck) {
-		var index = Math.floor(Math.random() * deck.length);
-		return deck[index];
-	}
 
 	function member() {
 		const memberBerries = require("./memberberries.json");
 		return "…member " + randomChoice(memberBerries) + "?!!? :-D";
 	}
 
-	function watIs(wat) {
+	function watIs(args) {
+		const wat = args.join(" ")
 		if (!wat) {
 			return "Yo, what's up?!";
 		}
@@ -499,16 +332,12 @@ bot.on("message", function (user, userID, channelID, message, evt) {
 		if (definition) {
 			return definition;
 		} else {
-			if (typeof wat === "string") {
-				const word = wat;
-			} else {
-				const word = wat.join(" ");
-			}
-			return "I have no clue what a " + word + " is.";
+			return "I have no clue what a " + args + " is.";
 		}
 	}
 
-	function foxxxify(dogg) {
+	function foxxxify(args) {
+		const dogg = args[0]
 		if (!dogg) return ":regional_indicator_m: :fox: :dog2: :flag_au:";
 		const doggo = dogg.trim().toLowerCase();
 		if (doggo === "out")
@@ -517,12 +346,8 @@ bot.on("message", function (user, userID, channelID, message, evt) {
 			return "https://cdn.discordapp.com/attachments/270406768750886912/474401118915657746/Screenshot_from_2018-05-06_14-16-03.png";
 		return "https://cdn.discordapp.com/attachments/270406768750886912/474401450257154048/Screenshot_from_2018-05-12_13-38-18.png";
 	}
-});
 
-bot.on("disconnect", function (errmsg, code) {
-	logger.info("Disconnected: (" + code + ") " + errmsg);
-	setTimeout(() => {
-		// return a "failure" exit code so systemd (or whatever) will respawn us
-		process.exit(1);
-	}, 250);
+	function mark() {
+		return "https://media.discordapp.net/attachments/270406768750886912/943523121074429952/Screenshot_from_2022-02-15_14-41-38.png"
+	}
 });
