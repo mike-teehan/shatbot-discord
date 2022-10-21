@@ -76,21 +76,39 @@ const linuxgnuruGoingToBed = function () {
 
 
 const justinLaptop = function () {
+	const wares = [
+		"laptop",
+		"MacBook",
+		"workstation"
+	]
+	const vendors = [
+		"Dell", "Lenovo", "Apple", "System76", "HP"
+	]
 	const sentences = [
-		"Today, I bought a $PRICE laptop",
-		"My $PRICE laptop is dead!",
-		"I ordered 3 $PRICE laptops",
-		"Looking into getting the new $PRICE MacBook"
+		"Today, I bought a $PRICE VENDOR HARDWARE",
+		"My $PRICE HARDWARE is dead!",
+		"I ordered 3 $PRICE HARDWAREs",
+		"Looking into getting the new $PRICE HARDWARE from VENDOR"
 	]
-	const prices = [
-		"1049",
-		"1790",
-		"2200",
-		"2990",
-		"4490",
+	const laptopPrices = [
+		"1,049",
+		"1,790",
+		"2,200",
+		"2,990",
+		"4,490",
 	]
+	const workstationPrices = [
+		"3,000",
+		"8,900",
+		"12,900",
+		"33,900",
+	]
+	var hardware = randomChoice(wares)
 	var sentence = randomChoice(sentences)
+	var prices = (hardware === "workstation") ? workstationPrices : laptopPrices
 	var price = randomChoice(prices)
+	sentence = sentence.replace("HARDWARE", hardware)
+	sentence = sentence.replace("VENDOR", vendor)
 	return sentence.replace("PRICE", price)
 }
 
