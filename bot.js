@@ -107,8 +107,9 @@ const justinLaptop = function () {
 	var sentence = randomChoice(sentences)
 	var prices = (hardware === "workstation") ? workstationPrices : laptopPrices
 	var price = randomChoice(prices)
+	var vendor = randomChoice(vendors)
 	sentence = sentence.replace("HARDWARE", hardware)
-	sentence = sentence.replace("VENDOR", vendors)
+	sentence = sentence.replace("VENDOR", vendor)
 	return sentence.replace("PRICE", price)
 }
 
