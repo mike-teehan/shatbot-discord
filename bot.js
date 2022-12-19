@@ -128,10 +128,19 @@ const dmPunish = function () {
 	var punishments = [
 		"A rain of acid falls upon you, turning you in a puddle of bubbly flesh",
 		"A goblin robs you of all your possessions",
+		"You fall in a pit of lava",
+		"An IT professional pushes you out of the way and installs Windows 11 on your computer",
+		"You are trampled by a herd of elephants",
+		"You are forced to use SUSE Linux",
 		"You've ingested an extremely potent poison, your death is instant",
 		"A mimic chomps you in half",
 		"You fell in a spike trap",
-		"You've been eaten by a grue"
+		"You've been eaten by a grue",
+		"Metal grids come out of the ceiling and walls, turning you into little cubes",
+		"You are mauled by a bear",
+		"You become dinner for a mountain lion",
+		"Your whole Steam Library is replaced by Dwarf Fortress",
+		"You are suspended from Twitter",
 	]
 	return randomChoice(punishments)
 }
