@@ -23,7 +23,18 @@ logger.add(logger.transports.Console, {
 });
 logger.level = "debug";
 
+
+function shuffle(array) {
+	for (let i = array.length - 1; i > 0; i--) {
+	  let j = Math.floor(Math.random() * (i + 1));
+	  [array[i], array[j]] = [array[j], array[i]];
+	}
+}
+
 const randomChoice = function(deck) {
+	for (var i = 0; i < 200; i++) {
+		shuffle(deck)
+	}
 	var index = Math.floor(Math.random() * deck.length);
 	return deck[index];
 }
