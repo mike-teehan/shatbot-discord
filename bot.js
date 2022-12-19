@@ -113,6 +113,18 @@ const justinLaptop = function () {
 	return sentence.replace("PRICE", price)
 }
 
+const dmPunish = function () {
+	punishments = [
+		"A rain of acid falls upon you, turning you in a puddle of bubbly flesh",
+		"A goblin robs you of all your possessions",
+		"You've ingested an extremely potent poison, your death is instant",
+		"A mimic chomps you in half",
+		"You fell in a spike trap",
+		"You've been eaten by a grue"
+	]
+	return randomChoice(punishments)
+}
+
 // Initialize Discord Bot
 var bot = new Client()
 bot.login(conf["discord"]["auth_token"])
@@ -173,6 +185,9 @@ bot.on("message", async (msg) => {
 			case "justin":
 				msg.channel.send(justinLaptop());
 				break;
+			case "punish":
+					msg.channel.send(dmPunish());
+					break;
 			case "mir":
 				const giph = await giphy.getRandomGif("waifu")
 				msg.channel.send(giph);
