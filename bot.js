@@ -114,7 +114,7 @@ const justinLaptop = function () {
 }
 
 const dmPunish = function () {
-	punishments = [
+	var punishments = [
 		"A rain of acid falls upon you, turning you in a puddle of bubbly flesh",
 		"A goblin robs you of all your possessions",
 		"You've ingested an extremely potent poison, your death is instant",
@@ -186,8 +186,8 @@ bot.on("message", async (msg) => {
 				msg.channel.send(justinLaptop());
 				break;
 			case "punish":
-					msg.channel.send(dmPunish());
-					break;
+				msg.channel.send(dmPunish());
+				break;
 			case "mir":
 				const giph = await giphy.getRandomGif("waifu")
 				msg.channel.send(giph);
