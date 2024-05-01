@@ -1,0 +1,11 @@
+[Unit]
+Description=Shatbot service
+
+[Service]
+User=strider
+ExecStart=/bin/node bot.js
+WorkingDirectory=/home/strider/shatbot-discord
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
