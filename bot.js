@@ -124,6 +124,42 @@ const justinLaptop = function () {
 	return sentence.replace("PRICE", price)
 }
 
+const pedroOoof= function () {
+	const workloads = [
+		"Llama 3",
+		"Stable Diffusion XL",
+		"4K 60fps video rendering",
+		"Cyberpunk 2077 with Ray tracing ultra",
+		"cycles renderer in Blender",
+	]
+
+	const machines = [
+		"Amiga 500",
+		"Commodore 64",
+		"Atari ST",
+		"Amiga CD32",
+		"Nintendo 64",
+		"25Mhz Intel 386",
+		"Thinkpad X220",
+		"Raspberry Pi 4",
+		"PPC G5",
+		"GeForce 2 MX",
+	]
+
+	const sentences = [
+		"Ooooof, this MACHINE is not handling WORKLOAD all that well",
+		"Ooooof, WORKLOAD is struggling on my MACHINE",
+		"Ooooof, WORKLOAD on a MACHINE is NOT ideal",
+		"Ooooof, I'm surprised WORKLOAD on MACHINE isn't better",
+	]
+	var workload = randomChoice(workloads)
+	var machine = randomChoice(machines)
+	var sentence = randomChoice(sentences)
+	sentence = sentence.replace("MACHINE", machine)
+	sentence = sentence.replace("WORKLOAD", workload)
+	return sentence
+}
+
 const dmPunish = function () {
 	var punishments = [
 		"A rain of acid falls upon you, turning you in a puddle of bubbly flesh",
@@ -204,6 +240,11 @@ bot.on("message", async (msg) => {
 				break;
 			case "justin":
 				msg.channel.send(justinLaptop());
+				break;
+			case "oof":
+			case "ooof":
+			case "oooof":
+				msg.channel.send(pedroOoof());
 				break;
 			case "punish":
 				msg.channel.send(dmPunish());
