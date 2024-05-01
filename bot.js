@@ -23,7 +23,18 @@ logger.add(logger.transports.Console, {
 });
 logger.level = "debug";
 
+
+function shuffle(array) {
+	for (let i = array.length - 1; i > 0; i--) {
+	  let j = Math.floor(Math.random() * (i + 1));
+	  [array[i], array[j]] = [array[j], array[i]];
+	}
+}
+
 const randomChoice = function(deck) {
+	for (var i = 0; i < 200; i++) {
+		shuffle(deck)
+	}
 	var index = Math.floor(Math.random() * deck.length);
 	return deck[index];
 }
@@ -76,22 +87,62 @@ const linuxgnuruGoingToBed = function () {
 
 
 const justinLaptop = function () {
+	const wares = [
+		"laptop",
+		"MacBook",
+		"workstation"
+	]
+	const vendors = [
+		"Dell", "Lenovo", "Apple", "System76", "HP"
+	]
 	const sentences = [
-		"Today, I bought a $PRICE laptop",
-		"My $PRICE laptop is dead!",
-		"I ordered 3 $PRICE laptops",
-		"Looking into getting the new $PRICE MacBook"
+		"Today, I bought a $PRICE VENDOR HARDWARE",
+		"My $PRICE HARDWARE is dead!",
+		"I ordered 3 $PRICE HARDWAREs",
+		"Looking into getting the new $PRICE HARDWARE from VENDOR"
 	]
-	const prices = [
-		"1049",
-		"1790",
-		"2200",
-		"2990",
-		"4490",
+	const laptopPrices = [
+		"1,049",
+		"1,790",
+		"2,200",
+		"2,990",
+		"4,490",
 	]
+	const workstationPrices = [
+		"3,000",
+		"8,900",
+		"12,900",
+		"33,900",
+	]
+	var hardware = randomChoice(wares)
 	var sentence = randomChoice(sentences)
+	var prices = (hardware === "workstation") ? workstationPrices : laptopPrices
 	var price = randomChoice(prices)
+	var vendor = randomChoice(vendors)
+	sentence = sentence.replace("HARDWARE", hardware)
+	sentence = sentence.replace("VENDOR", vendor)
 	return sentence.replace("PRICE", price)
+}
+
+const dmPunish = function () {
+	var punishments = [
+		"A rain of acid falls upon you, turning you in a puddle of bubbly flesh",
+		"A goblin robs you of all your possessions",
+		"You fall in a pit of lava",
+		"An IT professional pushes you out of the way and installs Windows 11 on your computer",
+		"You are trampled by a herd of elephants",
+		"You are forced to use SUSE Linux",
+		"You've ingested an extremely potent poison, your death is instant",
+		"A mimic chomps you in half",
+		"You fell in a spike trap",
+		"You've been eaten by a grue",
+		"Metal grids come out of the ceiling and walls, turning you into little cubes",
+		"You are mauled by a bear",
+		"You become dinner for a mountain lion",
+		"Your whole Steam Library is replaced by Dwarf Fortress",
+		"You are suspended from Twitter",
+	]
+	return randomChoice(punishments)
 }
 
 // Initialize Discord Bot
@@ -153,6 +204,9 @@ bot.on("message", async (msg) => {
 				break;
 			case "justin":
 				msg.channel.send(justinLaptop());
+				break;
+			case "punish":
+				msg.channel.send(dmPunish());
 				break;
 			case "mir":
 				const giph = await giphy.getRandomGif("waifu")
