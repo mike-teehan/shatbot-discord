@@ -13,6 +13,7 @@ const giphy = require("./giphy.js");
 const meme = require("./meme.js");
 const aussie = require("./aussie.js");
 const jfss = require("./jfss.js");
+const pedro = require("./oof.js");
 
 db.connect();
 db.updateSchema();
@@ -125,42 +126,6 @@ const justinLaptop = function () {
 	return sentence.replace("PRICE", price)
 }
 
-const pedroOoof= function () {
-	const workloads = [
-		"Llama 3",
-		"Stable Diffusion XL",
-		"4K 60fps video rendering",
-		"Cyberpunk 2077 with Ray tracing ultra",
-		"cycles renderer in Blender",
-	]
-
-	const machines = [
-		"Amiga 500",
-		"Commodore 64",
-		"Atari ST",
-		"Amiga CD32",
-		"Nintendo 64",
-		"25Mhz Intel 386",
-		"Thinkpad X220",
-		"Raspberry Pi 4",
-		"PPC G5",
-		"GeForce 2 MX",
-	]
-
-	const sentences = [
-		"Ooooof, this MACHINE is not handling WORKLOAD all that well",
-		"Ooooof, WORKLOAD is struggling on my MACHINE",
-		"Ooooof, WORKLOAD on a MACHINE is NOT ideal",
-		"Ooooof, I'm surprised WORKLOAD on MACHINE isn't better",
-	]
-	var workload = randomChoice(workloads)
-	var machine = randomChoice(machines)
-	var sentence = randomChoice(sentences)
-	sentence = sentence.replace("MACHINE", machine)
-	sentence = sentence.replace("WORKLOAD", workload)
-	return sentence
-}
-
 const dmPunish = function (args) {
 	const didrex = /(<@[0-9]*>)/;
 	const argstr = args.join(' ').trim();
@@ -227,7 +192,9 @@ bot.on("message", async (msg) => {
 		// logger.info(`cmd: ${cmd}`);
 		args = args.splice(1);
 		// logger.info(`args: ${args}`);
-
+		const oofrex = /^[oO]+f$/;
+		if(cmd.match(oofrex))
+			cmd = "oof";
 		switch (cmd) {
 			case "turbobrad":
 			case "strider":
@@ -263,9 +230,7 @@ bot.on("message", async (msg) => {
 				msg.channel.send(justinLaptop());
 				break;
 			case "oof":
-			case "ooof":
-			case "oooof":
-				msg.channel.send(pedroOoof());
+				msg.channel.send(pedro.oof());
 				break;
 			case "punish":
 				msg.channel.send(dmPunish(args));
