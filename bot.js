@@ -12,6 +12,7 @@ const youtube = require("./youtube.js");
 const giphy = require("./giphy.js");
 const meme = require("./meme.js");
 const aussie = require("./aussie.js");
+const jfss = require("./jfss.js");
 
 db.connect();
 db.updateSchema();
@@ -160,25 +161,44 @@ const pedroOoof= function () {
 	return sentence
 }
 
-const dmPunish = function () {
+const dmPunish = function (args) {
+	const didrex = /(<@[0-9]*>)/;
+	const argstr = args.join(' ').trim();
+	//logger.info(`argstr: ${argstr}`);
+	const m = argstr.match(didrex);
+	//logger.info(`m: ${m}`);
+	let needvictim = [
+		"You must tell me whom I should tickle, master.",
+		"My firey wrath need but a target, your greatness.",
+		"Oh, I got 'em boss. You just gotta tell me who.",
+		"If you gime me a name, I'll let them have it."
+	];
+	if(!m)
+		return randomChoice(needvictim);
+
 	var punishments = [
-		"A rain of acid falls upon you, turning you in a puddle of bubbly flesh",
-		"A goblin robs you of all your possessions",
-		"You fall in a pit of lava",
-		"An IT professional pushes you out of the way and installs Windows 11 on your computer",
-		"You are trampled by a herd of elephants",
-		"You are forced to use SUSE Linux",
-		"You've ingested an extremely potent poison, your death is instant",
-		"A mimic chomps you in half",
-		"You fell in a spike trap",
-		"You've been eaten by a grue",
-		"Metal grids come out of the ceiling and walls, turning you into little cubes",
-		"You are mauled by a bear",
-		"You become dinner for a mountain lion",
-		"Your whole Steam Library is replaced by Dwarf Fortress",
-		"You are suspended from Twitter",
-	]
-	return randomChoice(punishments)
+		"A rain of acid falls upon <@>, turning them in a puddle of bubbly flesh",
+		"A goblin robs <@> of all their possessions",
+		"<@> fall in a pit of lava and burns to death horribly",
+		"An IT professional pushes you out of the way and installs Windows 11 on <@>'s computer",
+		"<@> trampled by a herd of elephants",
+		"<@> is forced to use SUSE Linux",
+		"<@> ingested an extremely potent poison, their death is instant",
+		"A mimic chomps <@> in half",
+		"<@> fell in a spike trap, leaving them alive, but immobile, trapped to slowly bleed out",
+		"<@> has been eaten by a grue",
+		"Metal grids come out of the ceiling and walls, turning <@> into little cubes",
+		"<@> is mauled by a bear and then it begins to eat you alive",
+		"<@> becomes dinner for a mountain lion",
+		"<@>'s whole Steam Library is replaced by Dwarf Fortress",
+		"<@> is suspended from Twitter",
+	];
+
+	const vname = m[0];
+	let p = randomChoice(punishments);
+	let punishment = p.replace('<@>', vname);
+
+	return punishment;
 }
 
 // Initialize Discord Bot
@@ -204,8 +224,9 @@ bot.on("message", async (msg) => {
 	if (msg.content.substring(0, 1) == "!") {
 		var args = msg.content.substring(1).split(" ");
 		var cmd = args[0];
-		// console.log("cmd: " + cmd);
+		// logger.info(`cmd: ${cmd}`);
 		args = args.splice(1);
+		// logger.info(`args: ${args}`);
 
 		switch (cmd) {
 			case "turbobrad":
@@ -247,7 +268,7 @@ bot.on("message", async (msg) => {
 				msg.channel.send(pedroOoof());
 				break;
 			case "punish":
-				msg.channel.send(dmPunish());
+				msg.channel.send(dmPunish(args));
 				break;
 			case "mir":
 				const giph = await giphy.getRandomGif("waifu")
@@ -270,89 +291,7 @@ bot.on("message", async (msg) => {
 				msg.channel.send(aussie.flipText(args));
 				break;
 			case "jfss":
-				var f = [
-					"Spunky",
-					"Crispy",
-					"Undercooked",
-					"Wet Hot American",
-					"Moistened",
-					"Dirty",
-					"Spicy, Spicy",
-					"Crunchy",
-					"Wildly Overrated",
-					"Speedy",
-					"S-Club 7-branded",
-					"Jazzy",
-					"Dilapidated",
-					"Jizzy",
-					"Prematurely-Birthed",
-					"Hairy",
-					"Hobgoblin's",
-					"Spermy",
-					"Stinky",
-					"Clean Shaven",
-					"Mystic",
-					"Rectally-Inserted",
-					"Erotically-Awakened",
-					"Urine-Flavored",
-					"Squeaky",
-					"Soggy",
-					"Pubic",
-					"Big Black",
-				];
-				var l = [
-					"Cumdumpsters",
-					"Areolas",
-					"Uvulas",
-					"Undies",
-					"Jizzboys",
-					"Rectums",
-					"Dildos",
-					"Cocklobsters",
-					"Milkshakes",
-					"Lady-fingers",
-					"Hams",
-					"Bottoms",
-					"Fatties",
-					"Wizzards",
-					"Armpits",
-					"Stink Clouds",
-					"Pantaloons",
-					"Shitwipes",
-					"Clits",
-					"Monkeys",
-					"U2 Fans",
-					"Scabs",
-					"Fuckrags",
-					"Boys",
-					"Scrotums",
-					"Parasites",
-					"Pancakes",
-					"Stinkers",
-				];
-				var gifurls = [
-					"https://media.giphy.com/media/8Zf0nJytPx4kr9t1OD/giphy.gif",
-					"https://media.giphy.com/media/93YoxYHMJdej6/giphy.gif",
-					"https://media2.giphy.com/media/COakIiWYHRlaU/giphy.gif",
-					"https://media3.giphy.com/media/HhaZdWpfmc56o/giphy.gif",
-					"https://media3.giphy.com/media/N2wzzZavH7jFK/giphy.gif",
-					"https://media2.giphy.com/media/har4vdqu3xfCE/giphy.gif",
-					"https://media3.giphy.com/media/lSyv3ESPQvYvC/giphy.gif",
-					"https://media2.giphy.com/media/Gt4HdteNFL8wE/giphy.gif",
-					"https://media3.giphy.com/media/lSyv3ESPQvYvC/giphy.gif",
-					"https://i.imgur.com/CLKeAbg.mp4",
-					"https://i.imgur.com/DjkUJsY.gif",
-					"https://i.imgur.com/Ry6KPym.gif",
-					"https://i.imgur.com/dLm43uc.gif",
-				];
-				var fn = Math.floor(Math.random() * f.length);
-				var ln = Math.floor(Math.random() * l.length);
-				var gn = Math.floor(Math.random() * gifurls.length);
-				var text = "Hello, you " + f[fn] + " " + l[ln] + "™";
-				const embed = new MessageEmbed()
-				  .setImage(gifurls[gn])
-				  .setDescription(text)
-				msg.channel.send(embed);
+				msg.channel.send(jfss.steph());
 				break;
 			case "barf":
 				var gifurls = [
