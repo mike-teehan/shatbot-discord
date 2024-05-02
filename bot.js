@@ -12,6 +12,7 @@ const youtube = require("./youtube.js");
 const giphy = require("./giphy.js");
 const meme = require("./meme.js");
 const aussie = require("./aussie.js");
+const jfss = require("./jfss.js");
 
 db.connect();
 db.updateSchema();
@@ -290,89 +291,7 @@ bot.on("message", async (msg) => {
 				msg.channel.send(aussie.flipText(args));
 				break;
 			case "jfss":
-				var f = [
-					"Spunky",
-					"Crispy",
-					"Undercooked",
-					"Wet Hot American",
-					"Moistened",
-					"Dirty",
-					"Spicy, Spicy",
-					"Crunchy",
-					"Wildly Overrated",
-					"Speedy",
-					"S-Club 7-branded",
-					"Jazzy",
-					"Dilapidated",
-					"Jizzy",
-					"Prematurely-Birthed",
-					"Hairy",
-					"Hobgoblin's",
-					"Spermy",
-					"Stinky",
-					"Clean Shaven",
-					"Mystic",
-					"Rectally-Inserted",
-					"Erotically-Awakened",
-					"Urine-Flavored",
-					"Squeaky",
-					"Soggy",
-					"Pubic",
-					"Big Black",
-				];
-				var l = [
-					"Cumdumpsters",
-					"Areolas",
-					"Uvulas",
-					"Undies",
-					"Jizzboys",
-					"Rectums",
-					"Dildos",
-					"Cocklobsters",
-					"Milkshakes",
-					"Lady-fingers",
-					"Hams",
-					"Bottoms",
-					"Fatties",
-					"Wizzards",
-					"Armpits",
-					"Stink Clouds",
-					"Pantaloons",
-					"Shitwipes",
-					"Clits",
-					"Monkeys",
-					"U2 Fans",
-					"Scabs",
-					"Fuckrags",
-					"Boys",
-					"Scrotums",
-					"Parasites",
-					"Pancakes",
-					"Stinkers",
-				];
-				var gifurls = [
-					"https://media.giphy.com/media/8Zf0nJytPx4kr9t1OD/giphy.gif",
-					"https://media.giphy.com/media/93YoxYHMJdej6/giphy.gif",
-					"https://media2.giphy.com/media/COakIiWYHRlaU/giphy.gif",
-					"https://media3.giphy.com/media/HhaZdWpfmc56o/giphy.gif",
-					"https://media3.giphy.com/media/N2wzzZavH7jFK/giphy.gif",
-					"https://media2.giphy.com/media/har4vdqu3xfCE/giphy.gif",
-					"https://media3.giphy.com/media/lSyv3ESPQvYvC/giphy.gif",
-					"https://media2.giphy.com/media/Gt4HdteNFL8wE/giphy.gif",
-					"https://media3.giphy.com/media/lSyv3ESPQvYvC/giphy.gif",
-					"https://i.imgur.com/CLKeAbg.mp4",
-					"https://i.imgur.com/DjkUJsY.gif",
-					"https://i.imgur.com/Ry6KPym.gif",
-					"https://i.imgur.com/dLm43uc.gif",
-				];
-				var fn = Math.floor(Math.random() * f.length);
-				var ln = Math.floor(Math.random() * l.length);
-				var gn = Math.floor(Math.random() * gifurls.length);
-				var text = "Hello, you " + f[fn] + " " + l[ln] + "™";
-				const embed = new MessageEmbed()
-				  .setImage(gifurls[gn])
-				  .setDescription(text)
-				msg.channel.send(embed);
+				msg.channel.send(jfss.steph());
 				break;
 			case "barf":
 				var gifurls = [
