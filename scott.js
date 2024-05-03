@@ -1,7 +1,5 @@
 "use strict";
 
-const { applyFixes } = require('eslint/lib/linter/source-code-fixer');
-
 (() => {
 
     const { MessageEmbed } = require('discord.js');
