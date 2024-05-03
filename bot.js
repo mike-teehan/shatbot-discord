@@ -14,6 +14,7 @@ const meme = require("./meme.js");
 const aussie = require("./aussie.js");
 const jfss = require("./jfss.js");
 const pedro = require("./oof.js");
+const great = require("./scott.js");
 
 db.connect();
 db.updateSchema();
@@ -196,6 +197,9 @@ bot.on("message", async (msg) => {
 		if(cmd.match(oofrex))
 			cmd = "oof";
 		switch (cmd) {
+			case "scott":
+				msg.channel.send(great.scott(args));
+				break;
 			case "turbobrad":
 			case "strider":
 				var victim = conf["victims"][cmd];
