@@ -14,7 +14,9 @@
         "cycles renderer in Blender",
         "Cities: Skylines 2",
         "running 700 VMs",
-        "mining shitcoins"
+        "mining shitcoins",
+        "Llama 3",
+        "running 700 VMs",
     ];
 
     const machines = [
@@ -28,8 +30,12 @@
         "Raspberry Pi 4",
         "PPC G5",
         "GeForce 2 MX",
-        "Toaster",
-        "potato"
+        "toaster",
+        "potato",
+        "25Mhz Intel 386",
+        "Thinkpad X220",
+        "Raspberry Pi 4",
+        "PPC G5",
     ];
 
     const sentences = [
