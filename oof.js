@@ -2,6 +2,9 @@
 
 (() => {
 
+    const logger = require("winston");
+    const fs = require("fs");
+
     module.exports.oof = () => {
 		return _oof();
 	}
@@ -49,18 +52,26 @@
     ];
 
     function _oof() {
-        const workload = workloads[Math.floor(Math.random() * workloads.length)];
-        const machine = machines[Math.floor(Math.random() * machines.length)];
-        let sentence = sentences[Math.floor(Math.random() * sentences.length)];
+        Math.random();
+        Math.random();
+        const w = Math.floor(Math.random() * workloads.length);
+        const workload = workloads[w];
+        const m = Math.floor(Math.random() * machines.length)
+        const machine = machines[m];
+        const s = Math.floor(Math.random() * sentences.length);
+        const sentence = sentences[s];
+        logger.info(`w: ${w} m: ${m} s: ${s}`);
+        const data = `${w}, ${m}, ${s}\n`;
+        fs.appendFileSync("randomout.txt", data);
 
         const ocnt = Math.floor(Math.random() * 8) + 2;
         const ostr = "o".repeat(ocnt);
         const oofstr = `O${ostr}f`;
-        sentence = sentence.replace("MACHINE", machine);
-        sentence = sentence.replace("WORKLOAD", workload);
-        sentence = sentence.replace("Oof", oofstr);
 
-        return sentence;
+        return sentence
+            .replace("MACHINE", machine)
+            .replace("WORKLOAD", workload)
+            .replace("Oof", oofstr);
     }
 
 })();
