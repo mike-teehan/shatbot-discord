@@ -127,6 +127,32 @@ const justinLaptop = function () {
 	return sentence.replace("PRICE", price)
 }
 
+const justinsBoss = function () {
+	const bossIsDoingThings = [
+		"is gambling in Las Vegas",
+		"has a bedroom full of naked people",
+		"is binge watching House of the Dragon",
+		"is playing the Playstation 5 all day",
+		"is drinking cocktails on a boat in the Caribbean",
+		"is chilling on the beach with his girlfriend",
+		"is eating caviar and drinking champagne",
+		"is doing tons of cocaine and having freaky sex",
+		"is taking photos of mountain goats in Glacier National Park",
+	]
+	const justinIsDoingThings = [
+		"trains the new hire who is incompetent",
+		"is asked to break basic security protocols",
+		"is asked to do something that will get him fired",
+		"has to deal with Autodesk support and their bullshit",
+		"has to deal with Dell customer support",
+		"has to respond to an engineer who is being an entitled prick",
+		"reinstalls Adobe Acrobat Reader for the 10th time today",
+		"is being reprimanded by a coworker for bringing water to the office",
+		"has to fix a bad Windows 11 update",
+	]
+	return "Justin's boss " + randomChoice(bossIsDoingThings) + " while Justin " + randomChoice(justinIsDoingThings);
+}
+
 const dmPunish = function (args) {
 	const didrex = /(<@[0-9]*>)/;
 	const argstr = args.join(' ').trim();
@@ -232,6 +258,9 @@ bot.on("message", async (msg) => {
 				break;
 			case "justin":
 				msg.channel.send(justinLaptop());
+				break;
+			case "justinsboss":
+				msg.channel.send(justinsBoss());
 				break;
 			case "oof":
 				msg.channel.send(pedro.oof());
