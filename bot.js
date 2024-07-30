@@ -127,7 +127,7 @@ const justinLaptop = function () {
 	return sentence.replace("PRICE", price)
 }
 
-const justinsBoss = function () {
+const boss = function (args) {
 	const bossIsDoingThings = [
 		"is gambling in Las Vegas",
 		"has a bedroom full of naked people",
@@ -137,8 +137,8 @@ const justinsBoss = function () {
 		"is chilling on the beach with his girlfriend",
 		"is eating caviar and drinking champagne",
 		"is doing tons of cocaine and having freaky sex",
-		"is taking photos of mountain goats in Glacier National Park",
-	]
+		"is taking photos of mountain goats in Glacier National Park"
+	];
 	const justinIsDoingThings = [
 		"trains the new hire who is incompetent",
 		"is asked to break basic security protocols",
@@ -149,8 +149,17 @@ const justinsBoss = function () {
 		"reinstalls Adobe Acrobat Reader for the 10th time today",
 		"is being reprimanded by a coworker for bringing water to the office",
 		"has to fix a bad Windows 11 update",
-	]
-	return "Justin's boss " + randomChoice(bossIsDoingThings) + " while Justin " + randomChoice(justinIsDoingThings);
+		"provisions another laptop"
+	];
+
+	const didrex = /(<@[0-9]*>)/;
+	const argstr = args.join(' ').trim();
+	const m = argstr.match(didrex);
+	const hardworker = (!m) ? "The MacGeek" : m[0];
+	const bossthings = randomChoice(bossIsDoingThings);
+	const workthings = randomChoice(justinIsDoingThings);
+
+	return `${hardworker}'s boss ${bossthings} while ${hardworker} ${workthings}.`;
 }
 
 const dmPunish = function (args) {
@@ -259,8 +268,8 @@ bot.on("message", async (msg) => {
 			case "justin":
 				msg.channel.send(justinLaptop());
 				break;
-			case "justinsboss":
-				msg.channel.send(justinsBoss());
+			case "boss":
+				msg.channel.send(boss(args));
 				break;
 			case "oof":
 				msg.channel.send(pedro.oof());
